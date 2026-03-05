@@ -1,4 +1,4 @@
-** Zero-Knowledge Verification System **
+# Zero-Knowledge Verification System
 
 Detailed idea proposal for my team.
 
@@ -6,10 +6,10 @@ CSI 4999
 
 Anton Sakhanovych
 
-# The Problem
+## The Problem
 
 Students surrender massive amounts of personal information just to get
-basic discounts. To prove “I’m a student” for a \$5 Spotify discount,
+basic discounts. To prove “I’m a student” for a $5 Spotify discount,
 you must upload your driver’s license showing your full name, exact
 birthdate, home address, photo, and more to companies like SheerID.
 These companies store this data in centralized databases that become
@@ -17,7 +17,7 @@ targets for breaches. The main issue is that verifiers need one bit of
 information(e.g. “is this person a student?”) but current systems
 require exposing dozens of data points.
 
-# Our solution
+## Our solution
 
 Students receive digitally-signed credentials from our service. Our
 service gets the information about the user via OAuth or SAML. These
@@ -35,7 +35,7 @@ university, your graduation date, or anything else.
 The innovation here is that the credential stays on your device, only
 the proof gets sent to the verifier.
 
-# Architecture
+## Architecture
 
 1.  Issuer(our service): Authenticates students via university OAuth,
     creates and signs credentials, and immediately sends credentials to

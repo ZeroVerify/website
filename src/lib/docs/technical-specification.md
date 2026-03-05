@@ -1,4 +1,4 @@
-** ZeroVerify Technical Specification **
+# ZeroVerify Technical Specification
 
 Version: 1.0 \| Date: 2/15/26
 
@@ -7,7 +7,7 @@ Fateha Ima (CS), Simon Griemert (CS)
 
 (CS) = Computer Science Major
 
-# Product Overview (The “What”)
+## Product Overview (The "What")
 
 **Problem Statement:** Existing identity verification systems require
 users to disclose entire credential documents (student IDs, driver’s
@@ -50,11 +50,15 @@ cryptographically validate proofs.
   S3. The cryptographic validation runs entirely on the verifier’s side
   with no round-trip to ZeroVerify’s infrastructure.
 
-# System Architecture (The “How”)
+## System Architecture (The “How”)
 
-## System Diagram
+### System Diagram
 
-## Architectural Boundary
+<a href="/images/system-architecture-diagram.png" target="_blank" rel="noopener noreferrer">
+  <img src="/images/system-architecture-diagram.png" alt="ZeroVerify System Architecture" style="max-width: 100%; width: 800px; cursor: pointer;" title="Click to view full size" />
+</a>
+
+### Architectural Boundary
 
 ZeroVerify is a library and issuance service, not a verification
 intermediary. The system provides: (1) an issuance API that issues BBS+
@@ -63,7 +67,7 @@ proof generation, and (3) a verification library that verifiers embed.
 Verifiers interact directly with users. They only call ZeroVerify to get
 a W3C revocation bitstring.
 
-## The Tech Stack
+### The Tech Stack
 
 **Backend: AWS Lambda (Rust)**
 
@@ -109,7 +113,7 @@ library fetches needed keys from ZeroVerify.
 Infrastructure is defined as code for reproducible deployments and
 CI/CD.
 
-## External APIs & Integrations
+### External APIs & Integrations
 
 **University OAuth 2.0/OIDC IdP**
 
@@ -122,9 +126,9 @@ endpoint.
 The BBS+ issuer private key is stored here, since AWS KMS does not
 support BBS+ as it is not a NIST-standardized algorithm.
 
-# Data Design
+## Data Design
 
-## Core Entities
+### Core Entities
 
 List the 3–4 most important data objects:
 
@@ -134,7 +138,7 @@ List the 3–4 most important data objects:
 
 - Credentials
 
-## Proof Entity Schema
+### Proof Entity Schema
 
 ```json
 {
@@ -147,7 +151,7 @@ List the 3–4 most important data objects:
 }
 ```
 
-## Credential Entity Schema
+### Credential Entity Schema
 
 ```json
 {
@@ -165,7 +169,7 @@ List the 3–4 most important data objects:
 }
 ```
 
-## Data Schema
+### Data Schema
 
 **Relationships:**
 
@@ -192,14 +196,14 @@ List the 3–4 most important data objects:
 }
 ```
 
-## Storage Strategy
+### Storage Strategy
 
 The files will be stored in AWS S3 and metadata about issued credentials
 will be in AWS DynamoDB.
 
-# Technical Complexity & Depth
+## Technical Complexity & Depth
 
-## The “Hard” Part
+### The “Hard” Part
 
 **Integrating with existing Authentication protocols**
 
@@ -223,9 +227,9 @@ revocation updates can be lost or overwritten. The solution is
 implementing optimistic locking or atomic update mechanism to ensure all
 revocation bit flips are captured under high concurrency.
 
-## Performance Goals
+### Performance Goals
 
-### Credential Issuance
+#### Credential Issuance
 
 - OAuth/OIDC authentication \< 500ms
 
@@ -237,19 +241,19 @@ revocation bit flips are captured under high concurrency.
 
 - Credential delivery to user: 200ms
 
-### Client-Side Proof Generation Performance
+#### Client-Side Proof Generation Performance
 
 - zk-SNARK Circuit Execution
   - Target: \< 4 seconds for proof generation
 
-### Proof Verification
+#### Proof Verification
 
 - Target: \< 300ms for complete verification
   - Cryptographic zk-proof validation \< 150ms
 
   - BitString retrieval from S3 \< 100ms
 
-### BBS+ Signature Operation
+#### BBS+ Signature Operation
 
 - Credential signing: 6-7.5ms
 
@@ -257,7 +261,7 @@ revocation bit flips are captured under high concurrency.
 
 - Proof Verification: 19ms/zk proof
 
-### Revocation Processing
+#### Revocation Processing
 
 - Revocation Update Latency: \< 10 min from revocation request to global
   availability
@@ -274,9 +278,9 @@ revocation bit flips are captured under high concurrency.
 
   - Use DynamoDB conditional writes or optimistic locking
 
-# Resilience & Security
+## Resilience & Security
 
-## Error Handling
+### Error Handling
 
 - If the OAuth IdP fails or times out, the system returns HTTP 503 and
   prompts the user to retry.
@@ -293,7 +297,7 @@ revocation bit flips are captured under high concurrency.
 - ZeroVerify follows a fail-safe policy: verification is never approved
   if validation cannot be fully completed.
 
-## Security
+### Security
 
 - All communication between users, verifiers, and ZeroVerify uses HTTPS
   (TLS 1.2+).
@@ -328,11 +332,11 @@ revocation bit flips are captured under high concurrency.
 - The system never returns “valid” if verification fails or is
   incomplete.
 
-# Milestone Roadmap (The “When”)
+## Milestone Roadmap (The “When”)
 
-## Phase 1 (Weeks 1-3): Prototype Implementation
+### Phase 1 (Weeks 1-3): Prototype Implementation
 
-### Infrastructure + Database Schema + Issuance Skeleton (API endpoints)
+#### Infrastructure + Database Schema + Issuance Skeleton (API endpoints)
 
 - Set up basic infrastructure so the demo can run end-to-end (frontend +
   backend running).
@@ -350,7 +354,7 @@ revocation bit flips are captured under high concurrency.
 
   - POST /api/credentials/issue (issue/store credential)
 
-### Trusted Setup (required before credential generation + proofs)
+#### Trusted Setup (required before credential generation + proofs)
 
 - Run a trusted setup to generate the setup parameters/files needed for
   our circuits so credential-related proof generation and verification
@@ -358,7 +362,7 @@ revocation bit flips are captured under high concurrency.
 
 - Deploy verification and proving key to the S3
 
-### Credential Issuance Flow
+#### Credential Issuance Flow
 
 - Backend generates the credential and returns it to the web app, and
   the credential is stored locally in the user’s browser
@@ -367,7 +371,7 @@ revocation bit flips are captured under high concurrency.
 
 - Create a mock verifier.
 
-### Replay Protection (session nonce/challenge binding)
+#### Replay Protection (session nonce/challenge binding)
 
 - Generate a unique session challenge (session nonce) per verification
   attempt and bind it to the proof (handled as part of the circuit).
@@ -375,24 +379,24 @@ revocation bit flips are captured under high concurrency.
 - Demo check: attempt to reuse an old proof in a new session → should be
   rejected.
 
-### Proof Generation + User Consent (at least 1 proof type)
+#### Proof Generation + User Consent (at least 1 proof type)
 
 - Proof request is shown in our web app and the user must approve/deny.
 
 - On approval, generate a proof for one proof type (ex: student status
   or over 21).
 
-### Verifier Verification Flow (Accepted/Rejected) (last step)
+#### Verifier Verification Flow (Accepted/Rejected) (last step)
 
 - Verify proof using issuer public key + public inputs.
 
 - Return Accepted/Rejected and log basic non-PII debug info.
 
-## Phase 4 (Week 4-6): Hardening + UI + Testing
+### Phase 4 (Week 4-6): Hardening + UI + Testing
 
 Goal: Done by April 13
 
-### Error handling + clear rejection reasons
+#### Error handling + clear rejection reasons
 
 - Add clear rejection reasons: **invalid**, **malformed**, **revoked**,
   **expired**
@@ -404,29 +408,29 @@ Goal: Done by April 13
 
   - **Expired:** session/challenge/credential expired (if applicable)
 
-### Revocation checking (if in scope for demo)
+#### Revocation checking (if in scope for demo)
 
 - Add a revocation check during verification
 
 - Demo case (if implemented): revoked credential → rejected
 
-### UI polish for demo flow
+#### UI polish for demo flow
 
 - Simplify the demo screens and prompts
   - clear “Approve/Deny” consent step
 
   - clear “Accepted/Rejected” result screen
 
-### Testing plan + test cases
+#### Testing plan + test cases
 
 - Happy path: request → approve → proof generated → verify → accepted
 
 - Failure cases: replay attempt, malformed input, invalid proof (and
   revoked/expired if implemented)
 
-## Phase 5 (Week 7-Finals): Final Checklist + Demo Prep
+### Phase 5 (Week 7-Finals): Final Checklist + Demo Prep
 
-### Deployment/demo packaging + documentation cleanup
+#### Deployment/demo packaging + documentation cleanup
 
 - Decide demo format: hosted or local run
 
@@ -434,19 +438,19 @@ Goal: Done by April 13
 
 - Cleanup documentation so it matches what we actually built
 
-### Final deliverables prep
+#### Final deliverables prep
 
 - Finalize website/video (if required)
 
 - Lock demo script + slide updates (who presents what, demo steps)
 
-### Final product demo (Finals Week)
+#### Final product demo (Finals Week)
 
 - Final rehearsal + backup plan (in case something breaks)
 
 - Deliver final demo during finals week
 
-# Limitations and Tradeoffs
+## Limitations and Tradeoffs
 
 **Credential Revocation**
 
@@ -496,7 +500,7 @@ but requires collecting excessive user data. We offer cryptographic
 certainty with zero data collection. Initial adoption requires pilots
 with privacy-conscious brands.
 
-# Reference links for performance Benchmarks
+## Reference links for performance Benchmarks
 
 - **<https://news.dyne.org/benchmark-of-the-bbs-signature-scheme-v06/>**
 
