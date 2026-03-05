@@ -1,9 +1,15 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
-
-	let { children } = $props();
+	import { resolve } from '$app/paths';
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
-{@render children()}
+<svelte:head>
+	<link rel="icon" href={favicon} />
+</svelte:head>
+
+<nav>
+	<a href={resolve('/')}>ZeroVerify</a> / <a href={resolve('/docs')}>docs</a>
+</nav>
+
+<slot />
