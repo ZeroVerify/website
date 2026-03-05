@@ -1,0 +1,173 @@
+** Executive Summary: Project “ZeroVerify” **
+
+Privacy-Preserving Verification System
+
+Team Members: Lisa Nguyen, Anton Sakhanovych, Souleymane Sono, Fateha
+Ima, Simon Griemert
+
+# 1. The Hook (The “Why Now”)
+
+Attribute verification is broken across markets: the student discount
+market _[\$19.3 billion by
+2033](https://growthmarketreports.com/report/student-discount-platforms-market)_,
+age verification (\$1.2B by 2028), employment verification for corporate
+benefits. People surrender excessive personal data to prove simple
+facts. For a \$5 Spotify discount, students upload driver’s licenses to
+_[SheerID](https://www.sheerid.com/)_, full name, birthdate, address,
+photo, stored in centralized databases. Seniors proving age eligibility,
+employees accessing corporate perks, professionals showing licensure all
+face the same problem: verification requires exposing identity data that
+services don’t need. Apple’s Digital ID and the EU’s May 2024 regulation
+requiring zero-knowledge proofs validate that better verification is
+possible. The timing is right: growing markets, clear privacy problem,
+proven technology.
+
+# 2. The Problem (The Gap)
+
+The market has a gap.
+_[SheerID](https://www.vendr.com/buyer-guides/sheerid)_ gives merchants
+real-time verification but collects excessive data: IP addresses, device
+IDs, blocks VPNs. _[Apple’s Digital
+ID](https://www.apple.com/newsroom/2025/11/apple-introduces-digital-id-a-new-way-to-create-and-present-an-id-in-apple-wallet/)_
+uses selective disclosure, which shows merchants some real identity data
+(actual birthdate, university name, employer) but hides other fields.
+Merchants still receive enough information to track and profile users
+across services.
+
+**Target Users**: Primary users are individuals proving attributes
+(students, employees, seniors, veterans, licensed professionals) who
+want verification without exposing personal data. Secondary stakeholders
+are service providers integrating our API to verify attributes without
+storing personal data, and credential issuers (universities, employers,
+agencies, licensing boards) who use OAuth to let us issue credentials
+after authentication, offloading verification infrastructure while
+remaining the source of truth.
+
+# 3. The Solution: ZeroVerify
+
+ZeroVerify uses zero-knowledge proofs for attribute verification without
+data disclosure. Here’s how it works:
+
+1.  User authenticates with credential issuer via OAuth (university for
+    enrollment, employer for employment status, government agency for
+    age/veteran status, licensing board for professional credentials)
+
+2.  Our service creates a signed credential and sends it directly to the
+    user’s browser
+
+3.  User stores the credential encrypted in a browser wallet
+
+4.  When verification is needed, the wallet generates a mathematical
+    proof
+
+5.  Merchant receives the proof and verifies it; learns only “this
+    person has an attribute X”
+
+The merchant never sees your name, university, graduation date, or any
+personal information. The credential stays on your device. Only the
+proof gets sent.
+
+# 4. Technical Approach & Depth
+
+- **Tech Stack:** TypeScript/React browser wallet (web-based, works on
+  any modern browser across Windows, Mac, Linux, Android, iOS),
+  serverless backend using AWS Lambda functions with Terraform for
+  infrastructure, AWS DynamoDB, AWS S3, AWS API Gateway, BSS+
+  signatures.
+
+- **Cryptographic Complexity:** We use zero-knowledge SNARKs implemented
+  with **[Circom](https://docs.circom.io/)** circuits that compile to
+  WebAssembly. The browser generates proofs using
+  **[snarkjs](https://github.com/iden3/snarkjs)**. The proof
+  demonstrates “I have a valid credential from an accredited university
+  AND it hasn’t expired” without revealing the actual credential data.
+
+- **Engineering Merit:** We use **[W3C Verifiable Credentials
+  2.0](https://www.w3.org/TR/vc-data-model-2.0/)** and OAuth/OIDC to
+  support any identity provider, eliminating the need for bilateral
+  agreements.
+
+- **Technical Superiority**: We use zkSNARKs over Bulletproofs because
+  SNARKs produce constant-size proofs **[(~200
+  bytes)](https://alinush.github.io/groth16)** regardless of statement
+  complexity. Bulletproofs scale logarithmically with circuit size. For
+  merchant verification, constant proof size means predictable
+  bandwidth. SNARK verification is O(1), Bulletproof verification is
+  O(n). The tradeoff is trusted setup, mitigated through multi-party
+  computation with public transcripts. We chose W3C Bitstring Status
+  Lists over OCSP for privacy-preserving revocation. OCSP requires
+  querying a server with the credential ID, revealing which credential
+  is being verified. Bitstrings allow merchants to download a compact
+  list ( 1KB for 10,000 credentials) and check revocation locally
+  without revealing which credential they’re verifying. We chose BBS+
+  signatures over ECDSA for selective disclosure. ECDSA requires the
+  entire credential in the ZK circuit to prove any attribute. BBS+
+  proves only required attributes (e.g., enrollment status) without
+  processing unnecessary fields, reducing circuit complexity.
+
+# 5. Novelty & USP (Unique Selling Point)
+
+Our USP is zero-knowledge verification. Proof without any data
+disclosure. Unlike SheerID’s database matching or Apple’s selective
+disclosure (which reveals actual attribute values to verifiers), we
+expose nothing. The proof demonstrates a valid attribute (e.g.,
+“currently enrolled”, “over 21”, “licensed professional”) without
+revealing the underlying data.
+
+Unlike Apple’s Digital ID (iOS-only, requires Apple API integration) or
+institution-specific solutions (require bilateral agreements), we’re
+web-based and cross-platform. The wallet runs in any modern browser on
+any device. ZK proofs work across web, mobile, desktop with standard
+HTTP APIs.
+
+# 6. Broader Impact
+
+- **Economic:** Users stop surrendering identity documents for routine
+  verifications like discounts, benefits, or service access.
+
+- **Legal/Regulatory:** GDPR and CCPA both require data minimization. We
+  collect less data than SheerID, so we’re compliant by design. The EU
+  passed a digital identity regulation in May 2024 that requires
+  zero-knowledge proofs, which validates our technical approach and
+  might influence future U.S. privacy laws.
+
+- **Technological:** Proves browser-based ZK cryptography works for
+  consumers. Extends to any attribute verification (age, employment,
+  licensure) where proof without disclosure is valuable.
+
+# References
+
+1.  Student Discount Platforms Market Research Report. Growth Market
+    Reports.
+    **[link](https://growthmarketreports.com/report/student-discount-platforms-market)**
+
+2.  SheerID Software Pricing and Business Model. Vendr.
+    **[link](https://www.vendr.com/buyer-guides/sheerid)**
+
+3.  Apple introduces Digital ID, a new way to create and present an ID
+    in Apple Wallet. Apple Newsroom, November 2025.
+    **[link](https://www.apple.com/newsroom/2025/11/apple-introduces-digital-id-a-new-way-to-create-and-present-an-id-in-apple-wallet/)**
+
+4.  Google Wallet Adds Digital ID Support and Expands its Reach.
+    PaymentsJournal.
+    **[link](https://www.paymentsjournal.com/google-wallet-adds-digital-id-support-and-expands-its-reach/)**
+
+5.  Student IDs on iPhone and Apple Watch expand to Canada and more US
+    universities. Apple Newsroom, August 2021.
+    **[link](https://www.apple.com/newsroom/2021/08/student-ids-on-iphone-and-apple-watch-expand-to-canada-and-more-us-universities/)**
+
+6.  Circom: A Circuit Compiler for Zero-Knowledge Proofs. Documentation.
+    **[link](https://docs.circom.io/)**
+
+7.  snarkjs: JavaScript implementation of zkSNARK schemes. GitHub -
+    iden3. **[link](https://github.com/iden3/snarkjs)**
+
+8.  Verifiable Credentials Data Model 2.0. W3C Recommendation, May 2025.
+    **[link](https://www.w3.org/TR/vc-data-model-2.0/)**
+
+9.  Polygon ID Release 6: Dynamic Credentials Implementation. Polygon
+    Labs, February 2024.
+    **[link](https://polygon.technology/blog/polygon-id-release-6-introducing-the-first-ever-implementation-of-dynamic-credentials)**
+
+10. Bitstring Status List v1.0. W3C Recommendation, May 2025.
+    **[link](https://www.w3.org/TR/vc-bitstring-status-list/)**
