@@ -1,7 +1,9 @@
-** ZeroVerify Team Charter ** Standard Operating Procedures for
+# ZeroVerify Team Charter
+
+Standard Operating Procedures for
 ZeroVerify team Version 1.1 \| Last Updated: February 2025
 
-# Team Members
+## Team Members
 
 - Lisa Nguyen
 
@@ -13,9 +15,9 @@ ZeroVerify team Version 1.1 \| Last Updated: February 2025
 
 - Simon Griemert
 
-# Communication Protocol
+## Communication Protocol
 
-## Channels
+### Channels
 
 - **Discord:** All project decisions, technical discussions, sprint
   coordination, and blocker notifications
@@ -25,7 +27,7 @@ ZeroVerify team Version 1.1 \| Last Updated: February 2025
 
 - **Email:** Professor escalations only
 
-## Response Time Commitments
+### Response Time Commitments
 
 - **Discord direct mentions:** Acknowledge within 24 hours (weekdays),
   48 hours (weekends)
@@ -36,7 +38,7 @@ ZeroVerify team Version 1.1 \| Last Updated: February 2025
 
 - **Pull request approvals:** Complete review within 48 hours of request
 
-## Communication Standards
+### Communication Standards
 
 - **The Golden Rule:** We critique code, not people. Technical
   disagreements focus on tradeoffs and project goals, not individual
@@ -49,12 +51,12 @@ ZeroVerify team Version 1.1 \| Last Updated: February 2025
 
 - Tag specific people when requesting action or input.
 
-# Meeting Schedule
+## Meeting Schedule
 
 All meeting times are arranged and agreed upon in the Discord group
 channel to accommodate team members” schedules.
 
-## Sprint Structure (2-week iterations)
+### Sprint Structure (2-week iterations)
 
 **Sprint Planning**
 
@@ -87,7 +89,7 @@ channel to accommodate team members” schedules.
 
 - Action items for next sprint
 
-# Definition of Done
+## Definition of Done
 
 A task is **DONE** when all criteria are met:
 
@@ -113,14 +115,14 @@ A task is **DONE** when all criteria are met:
 
 6.  Code merged to `main` branch
 
-## Code Quality Standards
+### Code Quality Standards
 
 - **Branch naming:** `feature/short-description`, `bugfix/issue-number`,
   `docs/what-changed`
 
-# Blocker Management
+## Blocker Management
 
-## Recognizing Blockers
+### Recognizing Blockers
 
 You are **blocked** if:
 
@@ -135,7 +137,7 @@ You are **blocked** if:
 
 - Conflicting requirements between capstone and thesis
 
-## Resolution Process
+### Resolution Process
 
 ### Phase 1: Self-Help (0-4 hours)
 
@@ -190,9 +192,9 @@ When team cannot agree on technical approach after 24 hours:
 
     - Time remaining in sprint/semester
 
-# Conflict Resolution Framework
+## Conflict Resolution Framework
 
-## Conflict Types & Resolution Paths
+### Conflict Types & Resolution Paths
 
 ### Technical Conflict
 
@@ -276,9 +278,9 @@ communication breakdown
 5.  For harassment or ethics violations, escalate immediately (no
     48-hour wait)
 
-# Professor Escalation Protocol
+## Professor Escalation Protocol
 
-## When to Escalate (Point of No Return)
+### When to Escalate (Point of No Return)
 
 **Immediate Escalation (within 24 hours):**
 
@@ -310,9 +312,9 @@ Body should include:
 4.  **Request:** Specific help needed (mediation, deadline adjustment,
     requirement clarification)
 
-# Sprint Tracking & Health Monitoring
+## Sprint Tracking & Health Monitoring
 
-## RAG Status Assessment
+### RAG Status Assessment
 
 At end of every backlog refinement, team assigns project health status:
 
@@ -343,7 +345,7 @@ At end of every backlog refinement, team assigns project health status:
 Action: If Red status persists for 2 consecutive sprints, automatic
 professor escalation.
 
-## GitHub Project Board Structure
+### GitHub Project Board Structure
 
 **Columns:**
 
@@ -374,7 +376,7 @@ professor escalation.
 
 - `blocked` label triggers immediate Scrum Master attention
 
-# Decision-Making Framework (GIST)
+## Decision-Making Framework (GIST)
 
 For proposing new features, technical approaches, or scope changes:
 
@@ -389,7 +391,7 @@ this idea? Can we prototype in one sprint?
 **Tasks:** Break down into implementable units (\<8 hours each) with
 clear acceptance criteria.
 
-# Post-Conflict Protocol
+## Post-Conflict Protocol
 
 After any conflict resolution:
 
@@ -410,7 +412,7 @@ with other demanding coursework. We acknowledge stress happens, extract
 lessons from conflicts, and do not hold grudges. Every sprint is a fresh
 start.
 
-# Charter Amendments
+## Charter Amendments
 
 **Process:**
 
@@ -425,7 +427,7 @@ start.
 Winter is coming. So is the deadline. Critique code, not teammates.  
 The North remembers. So does your Git history. Be kind.
 
-# Signatures
+### Signatures
 
 By signing below, all team members acknowledge they have read,
 understood, and agree to abide by the terms outlined in this Team

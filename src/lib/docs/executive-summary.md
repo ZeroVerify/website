@@ -1,18 +1,18 @@
-** Executive Summary: Project “ZeroVerify” **
+# Executive Summary: Project "ZeroVerify"
 
 Privacy-Preserving Verification System
 
 Team Members: Lisa Nguyen, Anton Sakhanovych, Souleymane Sono, Fateha
 Ima, Simon Griemert
 
-# 1. The Hook (The “Why Now”)
+## The Hook (The "Why Now")
 
 Attribute verification is broken across markets: the student discount
-market _[\$19.3 billion by
+market _[$19.3 billion by
 2033](https://growthmarketreports.com/report/student-discount-platforms-market)_,
-age verification (\$1.2B by 2028), employment verification for corporate
+age verification ($1.2B by 2028), employment verification for corporate
 benefits. People surrender excessive personal data to prove simple
-facts. For a \$5 Spotify discount, students upload driver’s licenses to
+facts. For a $5 Spotify discount, students upload driver’s licenses to
 _[SheerID](https://www.sheerid.com/)_, full name, birthdate, address,
 photo, stored in centralized databases. Seniors proving age eligibility,
 employees accessing corporate perks, professionals showing licensure all
@@ -22,7 +22,7 @@ requiring zero-knowledge proofs validate that better verification is
 possible. The timing is right: growing markets, clear privacy problem,
 proven technology.
 
-# 2. The Problem (The Gap)
+## The Problem (The Gap)
 
 The market has a gap.
 _[SheerID](https://www.vendr.com/buyer-guides/sheerid)_ gives merchants
@@ -43,7 +43,7 @@ agencies, licensing boards) who use OAuth to let us issue credentials
 after authentication, offloading verification infrastructure while
 remaining the source of truth.
 
-# 3. The Solution: ZeroVerify
+## The Solution: ZeroVerify
 
 ZeroVerify uses zero-knowledge proofs for attribute verification without
 data disclosure. Here’s how it works:
@@ -67,7 +67,7 @@ The merchant never sees your name, university, graduation date, or any
 personal information. The credential stays on your device. Only the
 proof gets sent.
 
-# 4. Technical Approach & Depth
+## Technical Approach & Depth
 
 - **Tech Stack:** TypeScript/React browser wallet (web-based, works on
   any modern browser across Windows, Mac, Linux, Android, iOS),
@@ -105,7 +105,7 @@ proof gets sent.
   proves only required attributes (e.g., enrollment status) without
   processing unnecessary fields, reducing circuit complexity.
 
-# 5. Novelty & USP (Unique Selling Point)
+## Novelty & USP (Unique Selling Point)
 
 Our USP is zero-knowledge verification. Proof without any data
 disclosure. Unlike SheerID’s database matching or Apple’s selective
@@ -120,7 +120,7 @@ web-based and cross-platform. The wallet runs in any modern browser on
 any device. ZK proofs work across web, mobile, desktop with standard
 HTTP APIs.
 
-# 6. Broader Impact
+## Broader Impact
 
 - **Economic:** Users stop surrendering identity documents for routine
   verifications like discounts, benefits, or service access.
@@ -135,7 +135,7 @@ HTTP APIs.
   consumers. Extends to any attribute verification (age, employment,
   licensure) where proof without disclosure is valuable.
 
-# References
+## References
 
 1.  Student Discount Platforms Market Research Report. Growth Market
     Reports.

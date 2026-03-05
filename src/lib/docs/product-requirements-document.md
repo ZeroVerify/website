@@ -1,11 +1,11 @@
-** Product Requirement Document (PRD) **
+# Product Requirement Document (PRD)
 
 Date: 2/22/26 \| Team: Lisa Nguyen (CS), Anton Sakhanovyvh (CS),
 Souleymane Sono (CS), Fateha Ima (CS), Simon Griemert (CS)
 
-# Executive Summary
+## Executive Summary
 
-## The Hook
+### The Hook
 
 Over 17 billion personal records were compromised in 2023 alone
 (Flashpoint 2024 Global Threat Intelligence Report). The dominant
@@ -20,7 +20,7 @@ protocols are breached, the exposed records reflect everything the
 protocol required them to collect. ZeroVerify attacks the collection
 requirement itself.
 
-## The Problem
+### The Problem
 
 Current digital identity verification operates on a structural mismatch
 between what verifiers need and what protocols deliver. To confirm a
@@ -34,7 +34,7 @@ verifier can confirm a claim about a user’s identity without receiving
 any personal attributes at all, and without requiring organizations to
 replace their existing identity infrastructure.
 
-## The Solution
+### The Solution
 
 ZeroVerify is a privacy-preserving identity verification layer that
 integrates with the identity infrastructure universities and enterprises
@@ -71,7 +71,7 @@ proof systems. The institution speaks SAML, OAuth, OIDC. The verifier
 calls two SDK functions. ZeroVerify handles the cryptographic complexity
 in between.
 
-## Technical Approach
+### Technical Approach
 
 ZeroVerify is built on four core technologies: BBS+ signatures for
 credential issuance, Groth-16 zk-SNARKs compiled in circom for circuit
@@ -93,11 +93,11 @@ generation would defeat the privacy guarantee. This requires compiling a
 Groth-16 zk-SNARK prover to WebAssembly and executing it client-side
 within the constraints of mobile hardware.
 
-## Impact
+### Impact
 
 ZeroVerify has implications across three dimensions. Economically, it
 targets markets where identity over-disclosure is endemic: the student
-discount market (\$19.3B by 2033) and age verification market (\$1.2B by
+discount market ($19.3B by 2033) and age verification market ($1.2B by
 2028), where users currently surrender full identity documents to prove
 a single attribute. Legally, GDPR and CCPA both mandate data
 minimization; ZeroVerify satisfies that requirement at the protocol
@@ -108,7 +108,7 @@ stop surrendering identity documents for routing verifications. The
 credential stays on the device. The verifier learns one bit: valid or
 invalid.
 
-# Product Definition
+## Product Definition
 
 ZeroVerify is a privacy-centered verification platform that lets users
 confirm eligibility claims, like student status or age requirements,
@@ -135,7 +135,7 @@ Overall, ZeroVerify focuses on data minimization, user consent at the
 proof-type level (circuits), and compatibility with existing identity
 systems.
 
-# Target Audience (Primary users + pain points)
+## Target Audience (Primary users + pain points)
 
 **Primary: Verifiers (merchants, websites, service providers)** who need
 to confirm a single eligibility claim (ex: student status, over-21) but
@@ -172,7 +172,7 @@ Pain points:
 - They do not want to replace or rework existing SAML/OAuth/OIDC setups
   to support selective disclosure.
 
-# User Goals (What they are trying to achieve)
+## User Goals (What they are trying to achieve)
 
 **Verifier goals:**
 
@@ -201,7 +201,7 @@ Pain points:
 
 - Avoid adding additional identity-data distribution pathways.
 
-# Minimum Viable Product (MVP)
+## Minimum Viable Product (MVP)
 
 For the initial launch/demo, ZeroVerify will support one end-to-end
 verification flow with at least one proof type (e.g., student status).
@@ -234,9 +234,9 @@ verification flow with at least one proof type (e.g., student status).
 - **Revocation checking (if included in demo scope):** Verification
   includes a check against credential revocation status.
 
-# Functional Requirements
+## Functional Requirements
 
-## User Requirements
+### User Requirements
 
 ### Credential Issuance (User + IdP)
 
@@ -295,7 +295,7 @@ verification flow with at least one proof type (e.g., student status).
   cryptographic derivative of the subject identifier for the purpose of
   preventing duplicate credential issuance
 
-## Functional Logic
+### Functional Logic
 
 A logical blueprint for how the system responds to user inputs.
 
@@ -349,9 +349,9 @@ A logical blueprint for how the system responds to user inputs.
 
 - If any step fails return “invalid” with error code
 
-# Non-Functional Requirements
+## Non-Functional Requirements
 
-## Privacy
+### Privacy
 
 - The system shall not persist raw identity attributes received from an
   identity provider
@@ -366,14 +366,14 @@ A logical blueprint for how the system responds to user inputs.
   shall be consistent across separate verification sessions originating
   from the same credential
 
-## Performance
+### Performance
 
 - The system should generate ZK proofs in 1-5 seconds under normal load
 
 - The system should allow verifiers to validate proofs quickly enough
   for real-time checkout/discount flows
 
-## Scalability
+### Scalability
 
 - The system should support growth in the number of users, issuers/IdP,
   and verifiers without significant performance degradation
@@ -384,7 +384,7 @@ A logical blueprint for how the system responds to user inputs.
 - The system should keep verification and revocation-checking mechanism
   efficient at large scale
 
-## Usability
+### Usability
 
 - The system should provide a simple verification experience for users
   with 3 user actions or fewer and clear consent prompts
@@ -395,7 +395,7 @@ A logical blueprint for how the system responds to user inputs.
 - The system should provide clear user-friendly error messages (e.g.
   unsupported proof type, expired session, invalid proof)
 
-## Reliability
+### Reliability
 
 - The system should remain available during verification requests and
   handle transient failures gracefully
@@ -406,7 +406,7 @@ A logical blueprint for how the system responds to user inputs.
 - The system should preserve user access to credential storage and proof
   generation even if non-critical services experience issues
 
-## Interoperability
+### Interoperability
 
 - The system should align with W3C verifiable credential standards to
   maximize compatibility across platforms and ecosystems
@@ -414,7 +414,7 @@ A logical blueprint for how the system responds to user inputs.
 - The system should support common authentication systems used by
   issuers, IdP (OAuth/SSO) and work across major browsers/devices
 
-## Maintainability
+### Maintainability
 
 - The system should be modular so components (Issuance, proof
   generation, verification, replay protection) can be updated
@@ -426,9 +426,9 @@ A logical blueprint for how the system responds to user inputs.
 - The system should allow policy updates (e.g., supported proof types,
   replay protection rules) without requiring major redesign
 
-# UI/UX & Design Strategy
+## UI/UX & Design Strategy
 
-## How the user interacts with the logic
+### How the user interacts with the logic
 
 ZeroVerify’s UI is designed around a simple “start → login → consent →
 result” flow. The user should always understand (1) what they are
@@ -524,11 +524,11 @@ Prevent slips:
 - Consistent wording (always “proof request” or always “challenge,” but
   not both in the UI)
 
-# Technical Constraints & Data
+## Technical Constraints & Data
 
 Ensuring the project is technically feasible.
 
-## Data Models
+### Data Models
 
 Define clear relationships (1:N, N:N) and primary keys.
 
@@ -557,7 +557,7 @@ status = ACTIVE and expiry_date \> now, the request is rejected, since
 the user can only have one active credential from a given IdP. Otherwise
 a new record is written with a freshly generated cred_id.
 
-## System Architecture
+### System Architecture
 
 ZeroVerify’s architecture is split into two completely independent
 paths: issuance and verification. The backend is only involved in
@@ -613,7 +613,7 @@ The React app talks to API Gateway over HTTPS for issuance and
 revocation only. It talks directly to the verifier’s callback endpoint
 for proof submission.
 
-## Integration Strategy
+### Integration Strategy
 
 ### Identity Providers (via Keycloak)
 
@@ -631,9 +631,9 @@ in the verification link and posts the generated proof directly to it
 over HTTPS. ZeroVerify imposes no requirements on the verifier’s backend
 beyond accepting an HTTP POST with the proof payload.
 
-# Success Metrics & Validation
+## Success Metrics & Validation
 
-## Functional Requirements
+### Functional Requirements
 
 ### Digital Credential Issuance
 
@@ -717,7 +717,7 @@ beyond accepting an HTTP POST with the proof payload.
 
 - Verify encryption and key management logs
 
-## Non-functional Requirements
+### Non-functional Requirements
 
 ### Security
 
