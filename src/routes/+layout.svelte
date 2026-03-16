@@ -11,8 +11,12 @@
 </svelte:head>
 
 <nav>
-	<a href={resolve('/')}>ZeroVerify</a> / <a href={resolve('/docs')}>docs</a> /
-	<a href={resolve('/links')}>links</a>
+	<a href={resolve('/')}>ZeroVerify</a> /
+	<a href={resolve('/docs')}>docs</a> /
+	<a href={resolve('/links')}>links</a> /
+	<a href={resolve('/team')}>team</a> /
+	<a href={resolve('/schedule')}>schedule</a> /
+	<a href={resolve('/testing')}>testing</a> /
 </nav>
 
 <slot />
