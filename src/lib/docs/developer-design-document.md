@@ -1,7 +1,7 @@
 # ZeroVerify — Developer Design Document
 
 Version: 1.0  
-Date: 3/6/26  
+Date: 3/6/26
 
 Team: Lisa Nguyen (CS), Anton Sakhanovych (CS), Souleymane Sono (CS), Fateha Ima (CS), Simon Griemert (CS)
 
@@ -24,6 +24,7 @@ Protocols such as SAML, OAuth, and OpenID Connect transmit full identity attribu
 The system supports the following functional requirements:
 
 **Credential Issuance**
+
 - User authenticates through a trusted Identity Provider (OAuth / OIDC)
 - System validates authentication
 - System creates a signed credential
@@ -31,6 +32,7 @@ The system supports the following functional requirements:
 - User can view credentials in the wallet
 
 **Proof Generation**
+
 - Verifier redirects user to ZeroVerify
 - User sees requested proof type
 - User approves or denies request
@@ -38,6 +40,7 @@ The system supports the following functional requirements:
 - Proof reveals only the requested attribute
 
 **Verification**
+
 - Verifier sends proof request
 - Verifier receives proof
 - Verifier validates proof cryptographically

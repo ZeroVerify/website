@@ -7,7 +7,7 @@
 		{ slug: 'developer-design-document', title: 'developer-design-document' },
 		{ slug: 'team-charter', title: 'team-charter' },
 		{ slug: 'product-requirements-document', title: 'product-requirements-document' },
-		{ slug: 'technical-specification', title: 'technical-specification' },
+		{ slug: 'technical-specification', title: 'technical-specification' }
 	];
 </script>
 
