@@ -64,15 +64,15 @@
 
 <Section title="System Architecture">
 	<div class="text-center">
-		<a href="/images/system-architecture-diagram.png" target="_blank" class="block">
+		<a href={resolve('/images/system-architecture-diagram.png')} target="_blank" class="block">
 			<img
 				src="/images/system-architecture-diagram.png"
 				alt="ZeroVerify System Architecture"
-				class="rounded-lg border-borders mx-auto w-auto max-w-[800px] cursor-pointer border"
+				class="border-borders mx-auto w-auto max-w-[800px] cursor-pointer rounded-lg border"
 				title="Click to view full size"
 			/>
 		</a>
-		<p class="mt-4 text-sm text-text-secondary">Click diagram to view full size</p>
+		<p class="text-text-secondary mt-4 text-sm">Click diagram to view full size</p>
 	</div>
 </Section>
 
@@ -80,23 +80,23 @@
 	<div class="flex flex-wrap justify-center gap-6">
 		<Card class="w-full max-w-[220px]">
 			<h3 class="mb-1 font-semibold">Lisa Nguyen</h3>
-			<p class="text-sm text-text-secondary">Computer Science</p>
+			<p class="text-text-secondary text-sm">Computer Science</p>
 		</Card>
 		<Card class="w-full max-w-[220px]">
 			<h3 class="mb-1 font-semibold">Anton Sakhanovych</h3>
-			<p class="text-sm text-text-secondary">Computer Science</p>
+			<p class="text-text-secondary text-sm">Computer Science</p>
 		</Card>
 		<Card class="w-full max-w-[220px]">
 			<h3 class="mb-1 font-semibold">Souleymane Sono</h3>
-			<p class="text-sm text-text-secondary">Computer Science</p>
+			<p class="text-text-secondary text-sm">Computer Science</p>
 		</Card>
 		<Card class="w-full max-w-[220px]">
 			<h3 class="mb-1 font-semibold">Fateha Ima</h3>
-			<p class="text-sm text-text-secondary">Computer Science</p>
+			<p class="text-text-secondary text-sm">Computer Science</p>
 		</Card>
 		<Card class="w-full max-w-[220px]">
 			<h3 class="mb-1 font-semibold">Simon Griemert</h3>
-			<p class="text-sm text-text-secondary">Computer Science</p>
+			<p class="text-text-secondary text-sm">Computer Science</p>
 		</Card>
 	</div>
 </Section>

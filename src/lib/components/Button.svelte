@@ -9,6 +9,7 @@
 	$: finalHref = isExternal ? href : resolve(href);
 </script>
 
+<!-- eslint-disable svelte/no-navigation-without-resolve -->
 <a
 	href={finalHref}
 	{target}

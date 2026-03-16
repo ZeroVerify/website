@@ -5,13 +5,13 @@
 	export let imageAlt: string = '';
 </script>
 
-<section class="border-borders py-16 border-b text-center">
-	<h1 class="mb-4 text-5xl font-bold leading-tight">{title}</h1>
-	<p class="mb-8 text-2xl text-text-secondary">{subtitle}</p>
+<section class="border-borders border-b py-16 text-center">
+	<h1 class="mb-4 text-5xl leading-tight font-bold">{title}</h1>
+	<p class="text-text-secondary mb-8 text-2xl">{subtitle}</p>
 	{#if imageSrc}
-		<img src={imageSrc} alt={imageAlt} class="my-8 mx-auto block w-auto max-w-[400px]" />
+		<img src={imageSrc} alt={imageAlt} class="mx-auto my-8 block w-auto max-w-[400px]" />
 	{/if}
-	<div class="mt-8 gap-4 flex justify-center">
+	<div class="mt-8 flex justify-center gap-4">
 		<slot />
 	</div>
 </section>

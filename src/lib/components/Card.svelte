@@ -6,9 +6,9 @@
 	export { className as class };
 </script>
 
-<div class="rounded-lg border border-borders p-6 {centered ? 'text-center' : ''} {className}">
+<div class="border-borders rounded-lg border p-6 {centered ? 'text-center' : ''} {className}">
 	{#if title}
-		<h3 class="mb-2 text-xl font-semibold text-primary">{title}</h3>
+		<h3 class="text-primary mb-2 text-xl font-semibold">{title}</h3>
 	{/if}
 	<slot />
 </div>
