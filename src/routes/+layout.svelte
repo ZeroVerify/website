@@ -2,7 +2,7 @@
 	import '@fontsource/inter/400.css';
 	import '@fontsource/inter/600.css';
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/icon.png';
 	import { resolve } from '$app/paths';
 </script>
 
