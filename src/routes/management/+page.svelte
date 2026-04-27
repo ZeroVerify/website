@@ -6,7 +6,6 @@
 	<h1>Project Management</h1>
 	<p class="subtitle">Timeline, task breakdown, and ethical considerations</p>
 
-	<!-- Timeline -->
 	<section class="section" id="timeline">
 		<h2>Project Timeline</h2>
 		<p class="lead">15-week development roadmap from prototyping to final demo</p>
@@ -50,7 +49,7 @@
 						<div class="milestone-details">
 							<h4>Replay Protection</h4>
 							<p>Generate unique session challenge per verification attempt and bind it to proof</p>
-							<span class="milestone-status inprogress"> In Progress</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 					<div class="milestone">
@@ -58,7 +57,7 @@
 						<div class="milestone-details">
 							<h4>Proof Generation + User Consent</h4>
 							<p>Proof request shown in web app. User approves/denies. Generate proof for one proof type (student status)</p>
-							<span class="milestone-status inprogress">  In Progress</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 					<div class="milestone">
@@ -66,7 +65,7 @@
 						<div class="milestone-details">
 							<h4>Verifier Verification Flow</h4>
 							<p>Verify proof using issuer public key. Return Accepted/Rejected with basic debug logging</p>
-							<span class="milestone-status pending">⬜ Pending</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 				</div>
@@ -86,7 +85,7 @@
 						<div class="milestone-details">
 							<h4>Error Handling</h4>
 							<p>Add clear rejection reasons: invalid, malformed, revoked, expired</p>
-							<span class="milestone-status pending">⬜ Pending</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 					<div class="milestone">
@@ -94,7 +93,7 @@
 						<div class="milestone-details">
 							<h4>Revocation Checking</h4>
 							<p>Add revocation check during verification. Demo case: revoked credential → rejected</p>
-							<span class="milestone-status pending">⬜ Pending</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 					<div class="milestone">
@@ -102,7 +101,7 @@
 						<div class="milestone-details">
 							<h4>UI Polish for Demo</h4>
 							<p>Simplify demo screens, clear Approve/Deny consent step, clear Accepted/Rejected result screen</p>
-							<span class="milestone-status pending">⬜ Pending</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 					<div class="milestone">
@@ -110,7 +109,7 @@
 						<div class="milestone-details">
 							<h4>Testing Plan</h4>
 							<p>Happy path, replay attempt, malformed input, invalid proof, revoked/expired credentials</p>
-							<span class="milestone-status pending">⬜ Pending</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 				</div>
@@ -130,7 +129,7 @@
 						<div class="milestone-details">
 							<h4>Deployment/Demo Packaging</h4>
 							<p>Decide demo format (hosted or local). Create simple "how to run" steps</p>
-							<span class="milestone-status pending">⬜ Pending</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 					<div class="milestone">
@@ -138,7 +137,7 @@
 						<div class="milestone-details">
 							<h4>Documentation Cleanup</h4>
 							<p>Update documentation to match actual implementation</p>
-							<span class="milestone-status pending">⬜ Pending</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 					<div class="milestone">
@@ -146,7 +145,7 @@
 						<div class="milestone-details">
 							<h4>Final Deliverables</h4>
 							<p>Finalize website/video. Lock demo script and slide updates</p>
-							<span class="milestone-status pending">⬜ Pending</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 					<div class="milestone">
@@ -154,7 +153,7 @@
 						<div class="milestone-details">
 							<h4>Final Product Demo</h4>
 							<p>Final rehearsal with backup plan. Deliver demo during finals week</p>
-							<span class="milestone-status pending">⬜ Pending</span>
+							<span class="milestone-status completed">✓ Completed</span>
 						</div>
 					</div>
 				</div>
@@ -162,7 +161,6 @@
 		</div>
 	</section>
 
-	<!-- Task Breakdown -->
 	<section class="section">
 		<h2>Sprint Task Breakdown</h2>
 		<p class="lead">Current sprint priorities and team assignments</p>
@@ -180,15 +178,15 @@
 						<span>Implement session nonce binding for replay protection</span>
 					</div>
 					<div class="task">
-						<input type="checkbox" />
+						<input type="checkbox" checked />
 						<span>Add error handling for all failure modes</span>
 					</div>
 					<div class="task">
-						<input type="checkbox" />
+						<input type="checkbox" checked />
 						<span>Test revocation flow end-to-end</span>
 					</div>
 					<div class="task">
-						<input type="checkbox" />
+						<input type="checkbox" checked />
 						<span>Write integration tests for happy path</span>
 					</div>
 				</div>
@@ -198,23 +196,23 @@
 				<h3>Next Sprint (Week 7)</h3>
 				<div class="task-list">
 					<div class="task">
-						<input type="checkbox" />
+						<input type="checkbox" checked />
 						<span>UI polish and responsive design improvements</span>
 					</div>
 					<div class="task">
-						<input type="checkbox" />
+						<input type="checkbox" checked />
 						<span>Performance testing and optimization</span>
 					</div>
 					<div class="task">
-						<input type="checkbox" />
+						<input type="checkbox" checked />
 						<span>Security audit and penetration testing</span>
 					</div>
 					<div class="task">
-						<input type="checkbox" />
+						<input type="checkbox" checked />
 						<span>Documentation finalization</span>
 					</div>
 					<div class="task">
-						<input type="checkbox" />
+						<input type="checkbox" checked />
 						<span>Demo script preparation</span>
 					</div>
 				</div>
@@ -222,7 +220,6 @@
 		</div>
 	</section>
 
-	<!-- Ethics Statement -->
 	<section class="section" id="ethics">
 		<h2>Ethics & Governance</h2>
 
@@ -309,7 +306,6 @@
 		</div>
 	</section>
 
-	<!-- Risk Management -->
 	<section class="section">
 		<h2>Risk Management</h2>
 
@@ -391,7 +387,6 @@
 		margin-bottom: 2rem;
 	}
 
-	/* Timeline */
 	.timeline {
 		margin-top: 2rem;
 	}
@@ -507,17 +502,7 @@
 		color: #3fb950;
 	}
 
-	.milestone-status.inprogress {
-		background-color: rgba(210, 153, 34, 0.2);
-		color: #d29922;
-	}
 
-	.milestone-status.pending {
-		background-color: rgba(139, 148, 158, 0.2);
-		color: #8b949e;
-	}
-
-	/* Sprint Grid */
 	.sprint-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -565,7 +550,6 @@
 		line-height: 1.5;
 	}
 
-	/* Ethics Cards */
 	.ethics-card {
 		background-color: #161b22;
 		border: 1px solid #30363d;
@@ -672,7 +656,6 @@
 		margin-bottom: 1.5rem;
 	}
 
-	/* Risk Grid */
 	.risk-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

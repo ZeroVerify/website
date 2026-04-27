@@ -6,17 +6,16 @@
 	let isPlaying = false;
 
 	onMount(() => {
-		// Try to autoplay the music when component mounts
-		// Start muted to bypass browser restrictions, then unmute
+
 		if (audioElement) {
 			audioElement.muted = true;
 			audioElement.play().then(() => {
-				// Successfully started, now unmute
+
 				audioElement.muted = false;
-				audioElement.volume = 0.0; // Set volume to 30%
+				audioElement.volume = 0.0;
 				isPlaying = true;
 			}).catch((error) => {
-				// Autoplay was prevented by browser
+
 				console.log('Autoplay prevented:', error);
 				isPlaying = false;
 			});
@@ -40,12 +39,10 @@
 </svelte:head>
 
 <div class="home-page">
-	<!-- Background Music -->
 	<audio bind:this={audioElement} loop>
 		<source src="/resources/zerov_bg_music.mp3" type="audio/mpeg" />
 	</audio>
 
-	<!-- Music Control Button -->
 	<button class="music-control" on:click={toggleMusic} aria-label="Toggle background music">
 		{#if isPlaying}
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -59,9 +56,7 @@
 		{/if}
 	</button>
 
-	<!-- Hero Section -->
 	<section class="hero">
-		<!-- Background Video -->
 		<div class="hero-video-bg">
 			<video autoplay muted loop playsinline class="bg-video">
 				<source src="/bg_video.mp4" type="video/mp4" />
@@ -87,7 +82,6 @@
 		</div>
 	</section>
 
-	<!-- Executive Summary -->
 	<section class="section scroll-animate">
 		<h2>The Problem</h2>
 		<p class="lead">
@@ -100,6 +94,19 @@
 			The main issue is that verifiers need one bit of information (e.g. "is this person a student?")
 			but current systems require exposing dozens of data points.
 		</p>
+	</section>
+
+	<section class="section scroll-animate">
+		<h2>Why We Built This</h2>
+		<div class="video-wrapper">
+			<iframe
+				src="https://www.youtube.com/embed/jRbPRv91Bpg"
+				title="Why We Created ZeroVerify"
+				frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen
+			></iframe>
+		</div>
 	</section>
 
 	<section class="section scroll-animate scroll-animate-delay-1">
@@ -131,7 +138,6 @@
 		</div>
 	</section>
 
-	<!-- How It Works -->
 	<section class="section scroll-animate scroll-animate-delay-2">
 		<h2>How It Works</h2>
 		<div class="steps-container">
@@ -155,7 +161,19 @@
 		</div>
 	</section>
 
-	<!-- Use Cases -->
+	<section class="section scroll-animate scroll-animate-delay-3">
+		<h2>See It In Action</h2>
+		<div class="video-wrapper">
+			<iframe
+				src="https://www.youtube.com/embed/j3OEsUOdv4c"
+				title="ZeroVerify Full Demo"
+				frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen
+			></iframe>
+		</div>
+	</section>
+
 	<section class="section scroll-animate scroll-animate-delay-3">
 		<h2>Use Cases</h2>
 		<div class="use-cases-grid">
@@ -170,7 +188,6 @@
 		</div>
 	</section>
 
-	<!-- Team Section -->
 	<section class="section scroll-animate">
 		<h2>Our Team</h2>
 		<p class="team-intro">
@@ -205,7 +222,6 @@
 		</div>
 	</section>
 
-	<!-- Quick Links -->
 	<section class="section scroll-animate scroll-animate-delay-1">
 		<h2>Quick Links</h2>
 		<div class="quick-links">
@@ -218,7 +234,7 @@
 					<span>View all ZeroVerify repositories</span>
 				</div>
 			</a>
-			<a href={resolve('/architecture#system-diagram')} class="quick-link">
+			<a href="{resolve('/architecture')}#system-diagram" class="quick-link">
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 					<rect x="3" y="3" width="7" height="7"></rect>
 					<rect x="14" y="3" width="7" height="7"></rect>
@@ -230,7 +246,7 @@
 					<span>See how ZeroVerify works under the hood</span>
 				</div>
 			</a>
-			<a href={resolve('/design#api')} class="quick-link">
+			<a href="{resolve('/design')}#api" class="quick-link">
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 					<polyline points="16 18 22 12 16 6"></polyline>
 					<polyline points="8 6 2 12 8 18"></polyline>
@@ -246,12 +262,9 @@
 
 <style>
 	.home-page {
-		max-width: 1200px;
-		margin: 0 auto;
 		position: relative;
 	}
 
-	/* Music Control Button */
 	.music-control {
 		position: fixed;
 		bottom: 2rem;
@@ -283,20 +296,17 @@
 		color: #fff;
 	}
 
-	/* Hero Section */
 	.hero {
 		position: relative;
 		text-align: center;
-		padding: 6rem 2rem 8rem;
+		padding: 2rem 2rem 3rem;
 		border-bottom: 1px solid #21262d;
 		overflow: hidden;
-		min-height: 600px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 
-	/* Video Background */
 	.hero-video-bg {
 		position: absolute;
 		top: 0;
@@ -333,37 +343,25 @@
 	.hero-content {
 		position: relative;
 		z-index: 1;
-		max-width: 900px;
 		width: 100%;
 	}
 
 	.hero-logo {
-		width: 600px;
-		height: auto;
-		margin-bottom: 3rem;
+		width: 100%;
+		max-height: 60vh;
+		object-fit: contain;
+		margin-bottom: 0;
 		filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.5));
 	}
 
-	.hero-title {
-		font-size: 3.5rem;
-		font-weight: 700;
-		margin-bottom: 1rem;
-		text-shadow: 0 2px 20px rgba(0, 212, 255, 0.3);
-	}
-
-	.hero-tagline {
-		font-size: 1.5rem;
-		color: #c9d1d9;
-		margin-bottom: 1.5rem;
-		font-weight: 500;
-	}
 
 	.hero-description {
-		font-size: 1.6rem;
+		font-size: 2.2rem;
 		color: #c9d1d9;
-		max-width: 800px;
-		margin: 0 auto 3rem;
-		line-height: 1.8;
+		width: 100%;
+		max-width: 100%;
+		margin: 0 0 1rem;
+		line-height: 1.4;
 		opacity: 0.95;
 	}
 
@@ -372,6 +370,7 @@
 		gap: 1rem;
 		justify-content: center;
 		flex-wrap: wrap;
+		margin-top: 1rem;
 	}
 
 	.btn {
@@ -408,7 +407,6 @@
 		border-color: #8b949e;
 	}
 
-	/* Sections */
 	.section {
 		padding: 4rem 0;
 		border-bottom: 1px solid #21262d;
@@ -430,7 +428,6 @@
 		margin-bottom: 1.5rem;
 	}
 
-	/* Solution Grid */
 	.solution-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -467,7 +464,6 @@
 		line-height: 1.6;
 	}
 
-	/* Steps */
 	.steps-container {
 		display: flex;
 		align-items: center;
@@ -513,7 +509,6 @@
 		color: #8b949e;
 	}
 
-	/* Use Cases */
 	.use-cases-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -539,7 +534,6 @@
 		line-height: 1.6;
 	}
 
-	/* Team */
 	.team-intro {
 		text-align: center;
 		color: #8b949e;
@@ -596,7 +590,6 @@
 		font-size: 0.9rem;
 	}
 
-	/* Quick Links */
 	.quick-links {
 		display: flex;
 		flex-direction: column;
@@ -642,19 +635,28 @@
 		font-size: 0.9rem;
 	}
 
-	/* Responsive */
+	.video-wrapper {
+		position: relative;
+		width: 100%;
+		padding-bottom: 56.25%;
+		height: 0;
+		border-radius: 12px;
+		overflow: hidden;
+		margin-top: 1.5rem;
+		border: 1px solid #30363d;
+	}
+
+	.video-wrapper iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
 	@media (max-width: 768px) {
 		.hero-logo {
-			width: 90%;
-			max-width: 400px;
-		}
-
-		.hero-title {
-			font-size: 2.5rem;
-		}
-
-		.hero-tagline {
-			font-size: 1.25rem;
+			width: 100%;
 		}
 
 		.hero-description {

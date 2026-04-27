@@ -6,7 +6,6 @@
 	<h1>Verification & Testing</h1>
 	<p class="subtitle">Testing plan, performance benchmarks, and validation methods</p>
 
-	<!-- Testing Strategy -->
 	<section class="section">
 		<h2>Testing Strategy</h2>
 		<p class="lead">
@@ -66,7 +65,6 @@
 		</div>
 	</section>
 
-	<!-- Performance Benchmarks -->
 	<section class="section" id="benchmarks">
 		<h2>Performance Benchmarks</h2>
 		<p class="lead">Target performance metrics across all system components</p>
@@ -186,7 +184,6 @@
 		</div>
 	</section>
 
-	<!-- Traceability Matrix -->
 	<section class="section" id="traceability">
 		<h2>Traceability Matrix</h2>
 		<p class="lead">Mapping user stories to test cases and validation methods</p>
@@ -250,7 +247,6 @@
 		</div>
 	</section>
 
-	<!-- Validation Methods -->
 	<section class="section">
 		<h2>Validation Methods</h2>
 
@@ -338,7 +334,6 @@
 		margin-bottom: 2rem;
 	}
 
-	/* Testing Grid */
 	.testing-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -388,7 +383,6 @@
 		font-weight: 600;
 	}
 
-	/* Benchmark Tables */
 	.benchmark-category {
 		margin-bottom: 3rem;
 	}
@@ -448,7 +442,6 @@
 		color: #d29922;
 	}
 
-	/* Traceability Matrix */
 	.matrix-table {
 		background-color: #161b22;
 		border: 1px solid #30363d;
@@ -505,7 +498,6 @@
 		color: #d29922;
 	}
 
-	/* Validation Grid */
 	.validation-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -546,7 +538,6 @@
 		font-weight: 700;
 	}
 
-	/* Responsive */
 	@media (max-width: 768px) {
 		.bench-row,
 		.matrix-row {

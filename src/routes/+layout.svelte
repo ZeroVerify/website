@@ -34,10 +34,8 @@
 	}
 
 	onMount(() => {
-		// Add copy buttons to all code blocks
 		addCopyButtons();
 
-		// Re-add copy buttons on navigation (for client-side routing)
 		const unsubscribe = page.subscribe(() => {
 			setTimeout(addCopyButtons, 100);
 		});
@@ -49,7 +47,6 @@
 		const codeBlocks = document.querySelectorAll('.code-block');
 
 		codeBlocks.forEach((block) => {
-			// Skip if copy button already exists
 			if (block.querySelector('.copy-btn-wrapper')) return;
 
 			const header = block.querySelector('.code-header');
@@ -58,7 +55,6 @@
 
 			if (!header || !pre || !code) return;
 
-			// Create copy button
 			const copyWrapper = document.createElement('div');
 			copyWrapper.className = 'copy-btn-wrapper';
 			copyWrapper.innerHTML = `
@@ -114,7 +110,6 @@
 </svelte:head>
 
 <div class="app-container">
-	<!-- Header -->
 	<header class="site-header">
 		<div class="header-content">
 			<div class="header-left">
@@ -131,12 +126,10 @@
 		</div>
 	</header>
 
-	<!-- Mobile Menu Button -->
 	<button class="mobile-menu-btn" onclick={toggleSidebar} aria-label="Toggle menu">
 		<span class="hamburger"></span>
 	</button>
 
-	<!-- Sidebar -->
 	<aside class="sidebar" class:open={sidebarOpen}>
 		<div class="sidebar-header">
 			<a href={resolve('/')} class="logo-link">
@@ -190,11 +183,9 @@
 		</div>
 	</aside>
 
-	<!-- Main Content -->
 	<main class="main-content">
 		<slot />
 
-		<!-- Footer -->
 		<footer class="site-footer">
 			<div class="footer-content">
 				<div class="footer-section">

@@ -1,5 +1,51 @@
 {
 	"files.associations": {
 		"*.css": "tailwindcss"
-	}
+	},
+	"sqltools.connections": [
+		{
+			"mysqlOptions": {
+				"authProtocol": "default",
+				"enableSsl": "Disabled"
+			},
+			"ssh": "Disabled",
+			"previewLimit": 50,
+			"server": "localhost",
+			"port": 3306,
+			"driver": "MariaDB",
+			"name": "Kali MariaDB",
+			"group": "localhost",
+			"database": "CSI_TESTDB",
+			"username": "root"
+		},
+		{
+			"mysqlOptions": {
+				"authProtocol": "default",
+				"enableSsl": "Disabled"
+			},
+			"ssh": "Disabled",
+			"previewLimit": 50,
+			"server": "localhost",
+			"port": 3306,
+			"driver": "MariaDB",
+			"database": "CSI_TESTDB",
+			"username": "admin",
+			"name": "csi_testdb"
+		},
+		{
+			"mysqlOptions": {
+				"authProtocol": "default",
+				"enableSsl": "Disabled"
+			},
+			"ssh": "Disabled",
+			"previewLimit": 50,
+			"server": "127.0.0.1",
+			"port": 3306,
+			"driver": "MySQL",
+			"name": "velocity",
+			"database": "VELOCITY",
+			"username": "root",
+			"password": "admin123"
+		}
+	]
 }

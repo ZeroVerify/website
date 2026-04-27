@@ -6,7 +6,6 @@
 	<h1>System Architecture</h1>
 	<p class="subtitle">High-level design and technical infrastructure</p>
 
-	<!-- Overview -->
 	<section class="section">
 		<h2>Overview</h2>
 		<p class="lead">
@@ -19,7 +18,6 @@
 		</p>
 	</section>
 
-	<!-- System Diagram -->
 	<section class="section" id="system-diagram">
 		<h2>System Diagram</h2>
 		<p class="diagram-description">
@@ -77,7 +75,6 @@
 		</div>
 	</section>
 
-	<!-- Tech Stack -->
 	<section class="section" id="tech-stack">
 		<h2>Tech Stack</h2>
 		<p class="lead">Technology choices and justifications</p>
@@ -169,7 +166,6 @@
 		</div>
 	</section>
 
-	<!-- Security Architecture -->
 	<section class="section" id="security">
 		<h2>Security Architecture</h2>
 
@@ -214,7 +210,6 @@
 		</div>
 	</section>
 
-	<!-- Integration Strategy -->
 	<section class="section">
 		<h2>Integration Strategy</h2>
 
@@ -284,7 +279,6 @@
 		margin-bottom: 1.5rem;
 	}
 
-	/* Diagram */
 	.diagram-description {
 		color: #8b949e;
 		margin-bottom: 1.5rem;
@@ -337,7 +331,6 @@
 		opacity: 1;
 	}
 
-	/* Architecture Flows */
 	.architecture-flows {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -369,7 +362,6 @@
 		line-height: 1.6;
 	}
 
-	/* Tech Stack Table */
 	.tech-table {
 		background-color: #161b22;
 		border: 1px solid #30363d;
@@ -415,7 +407,6 @@
 		font-size: 0.95rem;
 	}
 
-	/* Security Grid */
 	.security-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -456,7 +447,6 @@
 		color: #00d4ff;
 	}
 
-	/* Integration Grid */
 	.integration-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -490,7 +480,6 @@
 		margin-bottom: 0.5rem;
 	}
 
-	/* Responsive */
 	@media (max-width: 768px) {
 		.tech-row {
 			grid-template-columns: 1fr;

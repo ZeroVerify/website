@@ -6,7 +6,6 @@
 	<h1>Detailed Component Design</h1>
 	<p class="subtitle">Database schemas, API specifications, and algorithm logic</p>
 
-	<!-- Overview -->
 	<section class="section">
 		<h2>Overview</h2>
 		<p class="lead">
@@ -16,7 +15,6 @@
 		</p>
 	</section>
 
-	<!-- Database Schema -->
 	<section class="section" id="database">
 		<h2>Database Schema</h2>
 
@@ -114,7 +112,6 @@
 		</div>
 	</section>
 
-	<!-- API Specifications -->
 	<section class="section" id="api">
 		<h2>API Specifications</h2>
 		<p class="lead">RESTful API endpoints for credential issuance and revocation</p>
@@ -260,7 +257,6 @@
 		</div>
 	</section>
 
-	<!-- Algorithm Logic -->
 	<section class="section" id="algorithms">
 		<h2>Algorithm Logic</h2>
 		<p class="lead">Zero-knowledge proof circuits and cryptographic operations</p>
@@ -431,7 +427,6 @@ component main = AgeVerification();`}</code></pre>
 		margin-bottom: 2rem;
 	}
 
-	/* Schema Cards */
 	.schema-card {
 		background-color: #161b22;
 		border: 1px solid #30363d;
@@ -452,7 +447,6 @@ component main = AgeVerification();`}</code></pre>
 		line-height: 1.6;
 	}
 
-	/* Code Blocks */
 	.code-block {
 		background-color: #0d1117;
 		border: 1px solid #30363d;
@@ -497,7 +491,6 @@ component main = AgeVerification();`}</code></pre>
 		color: #c9d1d9;
 	}
 
-	/* Schema Details */
 	.schema-details {
 		margin-top: 2rem;
 	}
@@ -561,7 +554,6 @@ component main = AgeVerification();`}</code></pre>
 		font-weight: 700;
 	}
 
-	/* API Endpoints */
 	.api-endpoint {
 		background-color: #161b22;
 		border: 1px solid #30363d;
@@ -614,7 +606,6 @@ component main = AgeVerification();`}</code></pre>
 		color: #c9d1d9;
 	}
 
-	/* Error States */
 	.error-states {
 		margin-top: 1.5rem;
 	}
@@ -641,7 +632,6 @@ component main = AgeVerification();`}</code></pre>
 		line-height: 1.5;
 	}
 
-	/* Algorithm Cards */
 	.algorithm-card {
 		background-color: #161b22;
 		border: 1px solid #30363d;
@@ -679,7 +669,6 @@ component main = AgeVerification();`}</code></pre>
 		line-height: 1.6;
 	}
 
-	/* Flow Steps */
 	.flow-steps {
 		margin-top: 2rem;
 	}

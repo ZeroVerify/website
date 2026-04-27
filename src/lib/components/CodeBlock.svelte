@@ -20,7 +20,6 @@
 	}
 
 	onMount(() => {
-		// Add syntax highlighting or other enhancements here if needed
 	});
 </script>
 
@@ -107,7 +106,6 @@
 		color: #c9d1d9;
 	}
 
-	/* Custom scrollbar for code blocks */
 	pre::-webkit-scrollbar {
 		height: 8px;
 	}

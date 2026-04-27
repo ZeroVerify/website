@@ -6,7 +6,6 @@
 	<h1>Contact Us</h1>
 	<p class="subtitle">Get in touch with the ZeroVerify team</p>
 
-	<!-- Contact Information Section -->
 	<section class="section">
 		<h2>Contact Information</h2>
 		<div class="contact-grid">
@@ -36,7 +35,6 @@
 		</div>
 	</section>
 
-	<!-- Map Section -->
 	<section class="section">
 		<h2>Find Us</h2>
 		<p class="lead">ZeroVerify is developed at Oakland University in Rochester, Michigan</p>
@@ -55,7 +53,6 @@
 		</div>
 	</section>
 
-	<!-- Team Section -->
 	<section class="section">
 		<h2>Project Team</h2>
 		<p class="lead">
@@ -115,7 +112,6 @@
 		margin-bottom: 2rem;
 	}
 
-	/* Contact Cards */
 	.contact-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -166,7 +162,6 @@
 		color: #79c0ff;
 	}
 
-	/* Map Container */
 	.map-container {
 		margin-top: 2rem;
 		border-radius: 12px;
@@ -179,7 +174,6 @@
 		display: block;
 	}
 
-	/* Team Info */
 	.team-info {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -205,7 +199,6 @@
 		line-height: 1.6;
 	}
 
-	/* Responsive */
 	@media (max-width: 768px) {
 		h1 {
 			font-size: 2.5rem;

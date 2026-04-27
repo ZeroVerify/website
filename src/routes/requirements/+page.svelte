@@ -6,7 +6,6 @@
 	<h1>Product Requirements Document</h1>
 	<p class="subtitle">Team: Lisa Nguyen, Anton Sakhanovych, Souleymane Sono, Fateha Ima, Simon Griemert</p>
 
-	<!-- Executive Summary -->
 	<section class="section">
 		<h2>Executive Summary</h2>
 		<div class="summary-grid">
@@ -37,7 +36,6 @@
 		</div>
 	</section>
 
-	<!-- Target Audience -->
 	<section class="section" id="personas">
 		<h2>Target Audience & Personas</h2>
 
@@ -110,7 +108,6 @@
 		</div>
 	</section>
 
-	<!-- Use Cases -->
 	<section class="section" id="use-cases">
 		<h2>Use Cases</h2>
 
@@ -161,7 +158,6 @@
 		</div>
 	</section>
 
-	<!-- Functional Requirements -->
 	<section class="section" id="functional-requirements">
 		<h2>Functional Requirements</h2>
 
@@ -218,7 +214,6 @@
 		</div>
 	</section>
 
-	<!-- Functional Logic -->
 	<section class="section" id="functional-logic">
 		<h2>Functional Logic</h2>
 		<p class="lead">A logical blueprint for how the system responds to user inputs</p>
@@ -281,7 +276,6 @@
 		</div>
 	</section>
 
-	<!-- MVP Definition -->
 	<section class="section">
 		<h2>Minimum Viable Product (MVP)</h2>
 		<p class="lead">
@@ -362,7 +356,6 @@
 		margin-bottom: 2rem;
 	}
 
-	/* Summary Grid */
 	.summary-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -387,7 +380,6 @@
 		line-height: 1.6;
 	}
 
-	/* Persona Cards */
 	.persona-card {
 		background-color: #161b22;
 		border: 2px solid #30363d;
@@ -468,7 +460,6 @@
 		color: #00d4ff;
 	}
 
-	/* Use Cases */
 	.use-case-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -534,7 +525,6 @@
 		font-weight: 600;
 	}
 
-	/* Functional Requirements */
 	.fr-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -587,7 +577,6 @@
 		color: #00d4ff;
 	}
 
-	/* Functional Logic */
 	.logic-flow {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -683,7 +672,6 @@
 		font-size: 0.9rem;
 	}
 
-	/* MVP Features */
 	.mvp-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
