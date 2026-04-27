@@ -22,7 +22,7 @@
 				</div>
 				<div class="phase-content">
 					<div class="milestone">
-						<div class="milestone-icon">🏗️</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Infrastructure + Database Schema</h4>
 							<p>Set up basic infrastructure, create minimal database schema, stand up issuance API skeleton endpoints</p>
@@ -30,7 +30,7 @@
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">🔐</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Trusted Setup</h4>
 							<p>Run trusted setup to generate parameters for circuits. Deploy verification and proving keys to S3</p>
@@ -38,7 +38,7 @@
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">📝</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Credential Issuance Flow</h4>
 							<p>Backend generates credential and returns it to web app. Credential stored locally in browser</p>
@@ -46,23 +46,23 @@
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">🛡️</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Replay Protection</h4>
 							<p>Generate unique session challenge per verification attempt and bind it to proof</p>
-							<span class="milestone-status inprogress">⏳ In Progress</span>
+							<span class="milestone-status inprogress"> In Progress</span>
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">🔬</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Proof Generation + User Consent</h4>
 							<p>Proof request shown in web app. User approves/denies. Generate proof for one proof type (student status)</p>
-							<span class="milestone-status inprogress">⏳ In Progress</span>
+							<span class="milestone-status inprogress">  In Progress</span>
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">✅</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Verifier Verification Flow</h4>
 							<p>Verify proof using issuer public key. Return Accepted/Rejected with basic debug logging</p>
@@ -82,7 +82,7 @@
 				</div>
 				<div class="phase-content">
 					<div class="milestone">
-						<div class="milestone-icon">⚠️</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Error Handling</h4>
 							<p>Add clear rejection reasons: invalid, malformed, revoked, expired</p>
@@ -90,7 +90,7 @@
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">🚫</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Revocation Checking</h4>
 							<p>Add revocation check during verification. Demo case: revoked credential → rejected</p>
@@ -98,7 +98,7 @@
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">🎨</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>UI Polish for Demo</h4>
 							<p>Simplify demo screens, clear Approve/Deny consent step, clear Accepted/Rejected result screen</p>
@@ -106,7 +106,7 @@
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">🧪</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Testing Plan</h4>
 							<p>Happy path, replay attempt, malformed input, invalid proof, revoked/expired credentials</p>
@@ -126,7 +126,7 @@
 				</div>
 				<div class="phase-content">
 					<div class="milestone">
-						<div class="milestone-icon">📦</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Deployment/Demo Packaging</h4>
 							<p>Decide demo format (hosted or local). Create simple "how to run" steps</p>
@@ -134,7 +134,7 @@
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">📋</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Documentation Cleanup</h4>
 							<p>Update documentation to match actual implementation</p>
@@ -142,7 +142,7 @@
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">🎬</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Final Deliverables</h4>
 							<p>Finalize website/video. Lock demo script and slide updates</p>
@@ -150,7 +150,7 @@
 						</div>
 					</div>
 					<div class="milestone">
-						<div class="milestone-icon">🎯</div>
+						<div class="milestone-icon"> </div>
 						<div class="milestone-details">
 							<h4>Final Product Demo</h4>
 							<p>Final rehearsal with backup plan. Deliver demo during finals week</p>
@@ -266,7 +266,7 @@
 		<div class="ethics-card">
 			<h3>Ethical Considerations</h3>
 			<div class="consideration">
-				<h4>⚖️ Balancing Privacy vs. Accountability</h4>
+				<h4> Balancing Privacy vs. Accountability</h4>
 				<p>
 					While zero-knowledge proofs maximize user privacy, they could theoretically be used to obscure
 					fraudulent activity. Our mitigation: credential revocation mechanisms ensure that compromised
@@ -274,7 +274,7 @@
 				</p>
 			</div>
 			<div class="consideration">
-				<h4>🌍 Digital Divide</h4>
+				<h4> Digital Divide</h4>
 				<p>
 					Browser-based cryptography requires modern devices with sufficient compute power. Older devices
 					or slow internet connections may struggle with proof generation (2-5 seconds). We acknowledge
@@ -282,7 +282,7 @@
 				</p>
 			</div>
 			<div class="consideration">
-				<h4>🔐 Trust in Cryptography</h4>
+				<h4> Trust in Cryptography</h4>
 				<p>
 					Zero-knowledge proofs require a trusted setup ceremony. If the setup is compromised, the entire
 					system's security is at risk. We mitigate this through multi-party computation (MPC) ceremonies

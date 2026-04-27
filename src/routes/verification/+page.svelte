@@ -16,7 +16,7 @@
 
 		<div class="testing-grid">
 			<div class="test-category">
-				<h3>🧪 Unit Tests</h3>
+				<h3> Unit Tests</h3>
 				<h4>Critical Functions Being Tested</h4>
 				<ul>
 					<li>BBS+ signature generation and verification</li>
@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="test-category">
-				<h3>🔗 Integration Tests</h3>
+				<h3> Integration Tests</h3>
 				<h4>Full-Flow Test Scenarios</h4>
 				<ul>
 					<li><strong>Happy Path:</strong> Registration → Issuance → Proof Generation → Verification → Accepted</li>
@@ -53,7 +53,7 @@
 			</div>
 
 			<div class="test-category">
-				<h3>🔒 Security Tests</h3>
+				<h3> Security Tests</h3>
 				<h4>Attack Scenarios</h4>
 				<ul>
 					<li>Replay attack prevention (reused proofs)</li>
@@ -118,7 +118,7 @@
 				<div class="bench-row">
 					<div class="bench-op">zk-SNARK Circuit Execution (Browser)</div>
 					<div class="bench-target">&lt; 4 seconds</div>
-					<div class="bench-status inprogress">⏳ Testing</div>
+					<div class="bench-status inprogress"> Testing</div>
 				</div>
 				<div class="bench-row">
 					<div class="bench-op">BBS+ Proof Generation</div>
@@ -170,17 +170,17 @@
 				<div class="bench-row">
 					<div class="bench-op">Revocation Update Latency</div>
 					<div class="bench-target">&lt; 10 minutes</div>
-					<div class="bench-status inprogress">⏳ Testing</div>
+					<div class="bench-status inprogress"> Testing</div>
 				</div>
 				<div class="bench-row">
 					<div class="bench-op">Batch Processing (100 requests)</div>
 					<div class="bench-target">&lt; 3s per batch</div>
-					<div class="bench-status inprogress">⏳ Testing</div>
+					<div class="bench-status inprogress"> Testing</div>
 				</div>
 				<div class="bench-row">
 					<div class="bench-op">Race Condition Consistency</div>
 					<div class="bench-target">99.9%</div>
-					<div class="bench-status inprogress">⏳ Testing</div>
+					<div class="bench-status inprogress"> Testing</div>
 				</div>
 			</div>
 		</div>
@@ -224,21 +224,21 @@
 				<div class="matrix-story">Replay Protection</div>
 				<div class="matrix-test">test_reject_reused_proof</div>
 				<div class="matrix-method">Security test with duplicate proofs</div>
-				<div class="matrix-status pending">⏳ Pending</div>
+				<div class="matrix-status pending"> Pending</div>
 			</div>
 
 			<div class="matrix-row">
 				<div class="matrix-story">Credential Revocation</div>
 				<div class="matrix-test">test_revoke_and_reject</div>
 				<div class="matrix-method">Integration test with revocation flow</div>
-				<div class="matrix-status pending">⏳ Pending</div>
+				<div class="matrix-status pending"> Pending</div>
 			</div>
 
 			<div class="matrix-row">
 				<div class="matrix-story">User Consent</div>
 				<div class="matrix-test">test_user_denies_proof</div>
 				<div class="matrix-method">UI test with consent screen</div>
-				<div class="matrix-status pending">⏳ Pending</div>
+				<div class="matrix-status pending"> Pending</div>
 			</div>
 
 			<div class="matrix-row">

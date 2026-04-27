@@ -13,7 +13,7 @@
 			audioElement.play().then(() => {
 				// Successfully started, now unmute
 				audioElement.muted = false;
-				audioElement.volume = 0.3; // Set volume to 30%
+				audioElement.volume = 0.0; // Set volume to 30%
 				isPlaying = true;
 			}).catch((error) => {
 				// Autoplay was prevented by browser
@@ -103,28 +103,28 @@
 	</section>
 
 	<section class="section scroll-animate scroll-animate-delay-1">
-		<h2>Our Solution</h2>
+
 		<p class="lead">
 			ZeroVerify uses zero-knowledge proofs for attribute verification without data disclosure.
 		</p>
 		<div class="solution-grid">
 			<div class="solution-card">
-				<div class="solution-icon">🔐</div>
+				<div class="solution-icon"> </div>
 				<h3>Zero-Knowledge Privacy</h3>
 				<p>Prove attributes without revealing any personal data. Only the proof gets sent to the verifier.</p>
 			</div>
 			<div class="solution-card">
-				<div class="solution-icon">🌐</div>
+				<div class="solution-icon"> </div>
 				<h3>Cross-Platform</h3>
 				<p>Browser-based wallet works on any device. No app installation required.</p>
 			</div>
 			<div class="solution-card">
-				<div class="solution-icon">🔒</div>
+				<div class="solution-icon"> </div>
 				<h3>No Data Storage</h3>
 				<p>Credentials stay on your device. We never store your personal information.</p>
 			</div>
 			<div class="solution-card">
-				<div class="solution-icon">⚡</div>
+				<div class="solution-icon"> </div>
 				<h3>Instant Verification</h3>
 				<p>Generate proofs in seconds. Faster than manual document verification.</p>
 			</div>
@@ -178,12 +178,12 @@
 		</p>
 		<div class="team-grid">
 			<div class="team-member">
-				<div class="team-avatar">LN</div>
+				<img src="/resources/members_pics/lisa.png" alt="Lisa Nguyen" class="team-avatar-img" />
 				<h3>Lisa Nguyen</h3>
 				<p class="team-role">Computer Science</p>
 			</div>
 			<div class="team-member">
-				<div class="team-avatar">AS</div>
+				<img src="/resources/members_pics/anton.png" alt="Anton Sakhanovych" class="team-avatar-img" />
 				<h3>Anton Sakhanovych</h3>
 				<p class="team-role">Computer Science</p>
 			</div>
@@ -198,7 +198,7 @@
 				<p class="team-role">Computer Science</p>
 			</div>
 			<div class="team-member">
-				<div class="team-avatar">SG</div>
+				<img src="/resources/members_pics/simon.png" alt="Simon Griemert" class="team-avatar-img" />
 				<h3>Simon Griemert</h3>
 				<p class="team-role">Computer Science</p>
 			</div>

@@ -10,11 +10,11 @@
 
 	const navItems = [
 		{ href: '/', label: 'Home', icon: '🏠' },
-		{ href: '/requirements', label: 'Requirements', icon: '📋' },
-		{ href: '/architecture', label: 'Architecture', icon: '🏗️' },
-		{ href: '/design', label: 'Detailed Design', icon: '⚙️' },
-		{ href: '/verification', label: 'Verification', icon: '✅' },
-		{ href: '/management', label: 'Management', icon: '📊' },
+		{ href: '/requirements', label: 'Requirements', icon: ' ' },
+		{ href: '/architecture', label: 'Architecture', icon: ' ' },
+		{ href: '/design', label: 'Detailed Design', icon: ' ' },
+		{ href: '/verification', label: 'Verification', icon: ' ' },
+		{ href: '/management', label: 'Management', icon: ' ' },
 		{ href: '/contact', label: 'Contact', icon: '📧' },
 		{
 			label: 'Documents',

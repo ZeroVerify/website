@@ -175,7 +175,7 @@
 
 		<div class="security-grid">
 			<div class="security-card">
-				<h3>🔐 Data Protection</h3>
+				<h3> Data Protection</h3>
 				<ul>
 					<li>All communication uses HTTPS (TLS 1.2+)</li>
 					<li>Server-side data encrypted using AWS KMS</li>
@@ -185,7 +185,7 @@
 			</div>
 
 			<div class="security-card">
-				<h3>🛡️ Replay Protection</h3>
+				<h3> Replay Protection</h3>
 				<ul>
 					<li>Each proof bound to verifier-provided session nonce</li>
 					<li>Session identifiers expire after fixed time window (5 minutes)</li>
@@ -194,7 +194,7 @@
 			</div>
 
 			<div class="security-card">
-				<h3>🔑 Key Management</h3>
+				<h3> Key Management</h3>
 				<ul>
 					<li>IAM roles follow least privilege principles</li>
 					<li>API keys and signing keys stored in AWS Secrets Manager</li>

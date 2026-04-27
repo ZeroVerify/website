@@ -99,7 +99,7 @@ mathematically -\> grants access/discount.
     work we will have to create a dummy idp(also verify if it is
     feasible).
 
-## THREEEEEE MAIN QUESTIONS
+## THREE MAIN QUESTIONS
 
 1.  Is it useful/usable? It will be using the interface we build whether
     it is a browser extension or a website.
