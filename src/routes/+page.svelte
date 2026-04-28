@@ -12,7 +12,7 @@
 			audioElement.play().then(() => {
 
 				audioElement.muted = false;
-				audioElement.volume = 0.0;
+				audioElement.volume = 0.2;
 				isPlaying = true;
 			}).catch((error) => {
 
