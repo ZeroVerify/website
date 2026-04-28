@@ -165,7 +165,7 @@
 		<h2>See It In Action</h2>
 		<div class="video-wrapper">
 			<iframe
-				src="https://www.youtube.com/embed/j3OEsUOdv4c"
+				src="https://www.youtube.com/embed/ElbmWd_xhB4"
 				title="ZeroVerify Full Demo"
 				frameborder="0"
 				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
