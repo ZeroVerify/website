@@ -6,11 +6,11 @@
 	<title>Links - ZeroVerify</title>
 </svelte:head>
 
-<h1 class="text-3xl font-semibold mb-4">Links</h1>
+<h1 class="mb-4 text-3xl font-semibold">Links</h1>
 
-<p class="text-gray-400 mb-8">Find ZeroVerify on GitHub and explore our repositories.</p>
+<p class="mb-8 text-gray-400">Find ZeroVerify on GitHub and explore our repositories.</p>
 
-<div class="gap-2 flex flex-col">
+<div class="flex flex-col gap-2">
 	{#each links as link (link.url)}
 		<div>
 			<a

@@ -2,11 +2,12 @@
 	import { resolve } from '$app/paths';
 
 	const docs = [
-		{ slug: 'idea', title: 'Idea' },
-		{ slug: 'executive-summary', title: 'Executive Summary' },
-		{ slug: 'team-charter', title: 'Team Charter' },
-		{ slug: 'product-requirements-document', title: 'Product Requirements Document' },
-		{ slug: 'technical-specification', title: 'Technical Specification' }
+		{ slug: 'idea', title: 'idea' },
+		{ slug: 'executive-summary', title: 'executive-summary' },
+		{ slug: 'developer-design-document', title: 'developer-design-document' },
+		{ slug: 'team-charter', title: 'team-charter' },
+		{ slug: 'product-requirements-document', title: 'product-requirements-document' },
+		{ slug: 'technical-specification', title: 'technical-specification' }
 	];
 </script>
 

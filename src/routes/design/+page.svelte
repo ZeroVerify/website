@@ -1,70 +1,86 @@
+<script lang="ts">
+	import Section from '$lib/components/Section.svelte';
+</script>
+
 <svelte:head>
 	<title>Detailed Design - ZeroVerify</title>
 </svelte:head>
 
-<div class="design-page">
-	<h1>Detailed Component Design</h1>
-	<p class="subtitle">Database schemas, API specifications, and algorithm logic</p>
+<h1 class="mb-8 text-4xl font-bold">Detailed Component Design</h1>
 
-	<section class="section">
-		<h2>Overview</h2>
-		<p class="lead">
-			This page provides the technical deep dive into ZeroVerify's component-level design,
-			including data models, API contracts, and the zero-knowledge proof circuits that power
-			privacy-preserving verification.
-		</p>
-	</section>
+<Section title="Overview" bordered={false}>
+	<p class="leading-relaxed">
+		This page provides component-level implementation details for ZeroVerify, including database
+		schemas, API specifications, and algorithm logic for the core cryptographic operations.
+	</p>
+</Section>
 
-	<section class="section" id="database">
-		<h2>Database Schema</h2>
+<Section title="Database Schema">
+	<h3 class="text-primary mb-4 text-xl font-semibold">Credential Metadata Table (DynamoDB)</h3>
+	<p class="text-text-secondary mb-4">
+		The credential metadata table tracks issued credentials and their revocation status. Each record
+		uniquely identifies a credential with its expiration and revocation index.
+	</p>
 
-		<div class="schema-card">
-			<h3>Credential Metadata Table (DynamoDB)</h3>
-			<p class="schema-description">
-				Stores metadata about issued credentials. The actual credential data is never stored on our servers.
-			</p>
+	<div class="mb-6 overflow-x-auto">
+		<table class="w-full border-collapse text-sm">
+			<thead>
+				<tr class="border-borders border-b">
+					<th class="text-primary px-4 py-3 text-left font-semibold">Attribute</th>
+					<th class="text-primary px-4 py-3 text-left font-semibold">Type</th>
+					<th class="text-primary px-4 py-3 text-left font-semibold">Role</th>
+					<th class="text-primary px-4 py-3 text-left font-semibold">Description</th>
+				</tr>
+			</thead>
+			<tbody class="text-text-secondary">
+				<tr class="border-borders border-b">
+					<td class="px-4 py-3 font-mono">subject</td>
+					<td class="px-4 py-3">String</td>
+					<td class="px-4 py-3">Partition key</td>
+					<td class="px-4 py-3">Pseudonymous user identifier (HMAC of issuer_id || sub_id)</td>
+				</tr>
+				<tr class="border-borders border-b">
+					<td class="px-4 py-3 font-mono">credential_id</td>
+					<td class="px-4 py-3">String (UUID)</td>
+					<td class="px-4 py-3">Sort key</td>
+					<td class="px-4 py-3">Unique credential identifier</td>
+				</tr>
+				<tr class="border-borders border-b">
+					<td class="px-4 py-3 font-mono">issue_date</td>
+					<td class="px-4 py-3">String (ISO 8601)</td>
+					<td class="px-4 py-3">Attribute</td>
+					<td class="px-4 py-3">Timestamp when credential was issued</td>
+				</tr>
+				<tr class="border-borders border-b">
+					<td class="px-4 py-3 font-mono">expiry_date</td>
+					<td class="px-4 py-3">String (ISO 8601)</td>
+					<td class="px-4 py-3">Attribute</td>
+					<td class="px-4 py-3">Timestamp when credential expires</td>
+				</tr>
+				<tr class="border-borders border-b">
+					<td class="px-4 py-3 font-mono">revocation_index</td>
+					<td class="px-4 py-3">Number</td>
+					<td class="px-4 py-3">Attribute</td>
+					<td class="px-4 py-3">Bit position in W3C Status List bitstring</td>
+				</tr>
+				<tr class="border-borders border-b">
+					<td class="px-4 py-3 font-mono">status</td>
+					<td class="px-4 py-3">String</td>
+					<td class="px-4 py-3">Attribute</td>
+					<td class="px-4 py-3">ACTIVE or REVOKED</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
-			<div class="code-block">
-				<div class="code-header">
-					<span class="code-title">Table Structure</span>
-					<span class="code-lang">DynamoDB</span>
-				</div>
-				<pre><code>{`{
-  "subject_id": "did:key:z6MkF5rGMoatr...",           // Partition key
-  "credential_id": "a3f8b2c1-4d5e-6f7a-8b9c-...",    // Sort key (UUID)
-  "credential_type": "Student_Credential",
-  "issued_at": "2025-02-10T20:41:27Z",               // ISO 8601
-  "expiresAt": "2026-02-10T20:41:27Z",
-  "revocation_index": 94567,                         // Position in bitstring
-  "revoked": false                                    // Status
-}`}</code></pre>
-			</div>
-
-			<div class="schema-details">
-				<h4>Field Descriptions</h4>
-				<ul>
-					<li><strong>subject_id:</strong> Pseudonymous user identifier (HMAC of IdP subject). Partition key for all credentials from one user</li>
-					<li><strong>credential_id:</strong> Unique credential identifier (UUID). Sort key for individual credential records</li>
-					<li><strong>credential_type:</strong> Type of credential (Student_Credential, Age_Credential, etc.)</li>
-					<li><strong>issued_at / expiresAt:</strong> Credential lifecycle timestamps</li>
-					<li><strong>revocation_index:</strong> Position in W3C Bitstring Status List for revocation checking</li>
-					<li><strong>revoked:</strong> Boolean status flag</li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="schema-card">
-			<h3>Credential Entity Schema</h3>
-			<p class="schema-description">
-				The signed credential delivered to the user's browser (stored in IndexedDB, never on our servers).
-			</p>
-
-			<div class="code-block">
-				<div class="code-header">
-					<span class="code-title">Credential Payload</span>
-					<span class="code-lang">JSON</span>
-				</div>
-				<pre><code>{`{
+	<h3 class="text-primary mb-4 text-xl font-semibold">Credential Entity Schema</h3>
+	<p class="text-text-secondary mb-4">
+		The credential itself is a W3C Verifiable Credential containing user attributes, signed with
+		BBS+ signature. Stored locally in user's browser IndexedDB.
+	</p>
+	<div class="border-borders mb-6 overflow-x-auto rounded-lg border bg-black p-4">
+		<pre class="text-text-secondary text-sm"><code
+				>{`{
   "student_id": "G89u28394",
   "email": "anton@oakland.edu",
   "first_name": "Anton",
@@ -76,644 +92,352 @@
     "university": "Oakland University",
     "major": "Computer Science"
   }
-}`}</code></pre>
-			</div>
-		</div>
+}`}</code
+			></pre>
+	</div>
 
-		<div class="schema-card">
-			<h3>Proof Entity Schema</h3>
-			<p class="schema-description">
-				The zero-knowledge proof generated by the user and sent to the verifier.
-			</p>
-
-			<div class="code-block">
-				<div class="code-header">
-					<span class="code-title">Proof Structure</span>
-					<span class="code-lang">JSON</span>
-				</div>
-				<pre><code>{`{
+	<h3 class="text-primary mb-4 text-xl font-semibold">Proof Entity Schema</h3>
+	<p class="text-text-secondary mb-4">
+		The proof structure generated by the client and sent to the verifier for validation.
+	</p>
+	<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+		<pre class="text-text-secondary text-sm"><code
+				>{`{
   "proof_type": "age_over_21",
   "proof": "base64_zkSNARK_proof_bytes",
   "public_inputs": {
-    "challenge": "n-0S6_WzA2Mj",                   // Verifier nonce
+    "challenge": "n-0S6_WzA2Mj",
     "credential_status_index": 94567
   }
-}`}</code></pre>
-			</div>
-		</div>
+}`}</code
+			></pre>
+	</div>
+</Section>
 
-		<div class="relationships-card">
-			<h4>Data Relationships</h4>
-			<ul>
-				<li><strong>1:N</strong> - One user (subject_id) can have multiple credentials from different sources</li>
-				<li><strong>1:N</strong> - One user can generate many different proofs</li>
-				<li><strong>1:N</strong> - Each signed credential can be used to generate many proofs</li>
-			</ul>
-		</div>
-	</section>
+<Section title="API Specification">
+	<h3 class="text-primary mb-4 text-xl font-semibold">Credential Issuance Endpoint</h3>
 
-	<section class="section" id="api">
-		<h2>API Specifications</h2>
-		<p class="lead">RESTful API endpoints for credential issuance and revocation</p>
-
-		<div class="api-endpoint">
-			<div class="endpoint-header">
-				<span class="http-method post">POST</span>
-				<span class="endpoint-path">/api/credentials/issue</span>
-			</div>
-			<p class="endpoint-description">
-				Issues a BBS+ signed credential after OAuth authentication. Called by the React app after
-				receiving the authorization code from Keycloak.
+	<div class="mb-6 space-y-4">
+		<div>
+			<p class="text-primary mb-2 font-mono text-lg">POST /api/credentials/issue</p>
+			<p class="text-text-secondary mb-4">
+				Issues a BBS+ signed credential after OAuth authentication. Returns signed credential to
+				client for local storage.
 			</p>
+		</div>
 
-			<h4>Request Body</h4>
-			<div class="code-block">
-				<div class="code-header">
-					<span class="code-title">Request</span>
-					<span class="code-lang">JSON</span>
-				</div>
-				<pre><code>{`{
+		<div>
+			<h4 class="text-primary mb-2 font-semibold">Request Body</h4>
+			<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+				<pre class="text-text-secondary text-sm"><code
+						>{`{
   "authorization_code": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
   "redirect_uri": "https://app.zeroverify.com/callback"
-}`}</code></pre>
+}`}</code
+					></pre>
 			</div>
+		</div>
 
-			<h4>Response (Success 200)</h4>
-			<div class="code-block">
-				<div class="code-header">
-					<span class="code-title">Response</span>
-					<span class="code-lang">JSON</span>
-				</div>
-				<pre><code>{`{
+		<div>
+			<h4 class="text-primary mb-2 font-semibold">Response (200 Success)</h4>
+			<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+				<pre class="text-text-secondary text-sm"><code
+						>{`{
   "credential": {
     "@context": ["https://www.w3.org/2018/credentials/v1"],
     "type": ["VerifiableCredential", "StudentCredential"],
-    "issuer": "did:web:zeroverify.com",
+    "issuer": "did:web:api.zeroverify.com",
     "issuanceDate": "2025-02-10T20:41:27Z",
     "expirationDate": "2026-02-10T20:41:27Z",
     "credentialSubject": {
       "id": "did:key:z6MkF5rGMoatr...",
-      "studentStatus": "enrolled",
-      "university": "Oakland University"
-    },
-    "credentialStatus": {
-      "id": "https://api.zeroverify.com/status#94567",
-      "type": "BitstringStatusListEntry",
-      "statusListIndex": "94567"
+      "student_status": "enrolled",
+      "university": "Oakland University",
+      "enrollment_date": "2021-09-01"
     },
     "proof": {
       "type": "BbsBlsSignature2020",
       "created": "2025-02-10T20:41:27Z",
-      "proofValue": "base64_bbs_signature..."
+      "proofPurpose": "assertionMethod",
+      "verificationMethod": "did:web:api.zeroverify.com#key-1",
+      "proofValue": "base64_bbs_signature_bytes..."
     }
-  }
-}`}</code></pre>
-			</div>
-
-			<h4>Error States</h4>
-			<div class="error-states">
-				<div class="error-state">
-					<span class="error-code">400</span>
-					<span class="error-desc">Bad Request - Invalid authorization code or missing parameters</span>
-				</div>
-				<div class="error-state">
-					<span class="error-code">401</span>
-					<span class="error-desc">Unauthorized - Authentication failed with IdP</span>
-				</div>
-				<div class="error-state">
-					<span class="error-code">409</span>
-					<span class="error-desc">Conflict - Active credential already exists for this user</span>
-				</div>
-				<div class="error-state">
-					<span class="error-code">500</span>
-					<span class="error-desc">Internal Server Error - Credential signing failed</span>
-				</div>
-			</div>
-		</div>
-
-		<div class="api-endpoint">
-			<div class="endpoint-header">
-				<span class="http-method post">POST</span>
-				<span class="endpoint-path">/api/credentials/revoke</span>
-			</div>
-			<p class="endpoint-description">
-				Submits a credential revocation request. The request is queued and processed in batches.
-			</p>
-
-			<h4>Request Body</h4>
-			<div class="code-block">
-				<div class="code-header">
-					<span class="code-title">Request</span>
-					<span class="code-lang">JSON</span>
-				</div>
-				<pre><code>{`{
+  },
   "credential_id": "a3f8b2c1-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
-  "proof_of_ownership": "base64_zk_proof..."
-}`}</code></pre>
-			</div>
-
-			<h4>Response (Success 202)</h4>
-			<div class="code-block">
-				<div class="code-header">
-					<span class="code-title">Response</span>
-					<span class="code-lang">JSON</span>
-				</div>
-				<pre><code>{`{
-  "status": "queued",
-  "message": "Revocation request submitted successfully",
-  "estimated_processing_time": "< 10 minutes"
-}`}</code></pre>
+  "revocation_index": 94567
+}`}</code
+					></pre>
 			</div>
 		</div>
 
-		<div class="api-endpoint">
-			<div class="endpoint-header">
-				<span class="http-method get">GET</span>
-				<span class="endpoint-path">/api/status-list</span>
+		<div>
+			<h4 class="text-primary mb-2 font-semibold">Error States</h4>
+			<div class="text-text-secondary space-y-2">
+				<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+					<p class="mb-2 font-semibold">400 Bad Request - Invalid authorization code</p>
+					<pre class="text-sm"><code
+							>{`{
+  "error": "invalid_request",
+  "error_description": "Authorization code is invalid or expired"
+}`}</code
+						></pre>
+				</div>
+
+				<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+					<p class="mb-2 font-semibold">401 Unauthorized - OAuth verification failed</p>
+					<pre class="text-sm"><code
+							>{`{
+  "error": "unauthorized",
+  "error_description": "OAuth token verification failed"
+}`}</code
+						></pre>
+				</div>
+
+				<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+					<p class="mb-2 font-semibold">409 Conflict - Active credential already exists</p>
+					<pre class="text-sm"><code
+							>{`{
+  "error": "duplicate_credential",
+  "error_description": "An active credential already exists for this user"
+}`}</code
+						></pre>
+				</div>
+
+				<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+					<p class="mb-2 font-semibold">500 Internal Server Error - Credential signing failed</p>
+					<pre class="text-sm"><code
+							>{`{
+  "error": "internal_error",
+  "error_description": "Failed to generate credential signature"
+}`}</code
+						></pre>
+				</div>
 			</div>
-			<p class="endpoint-description">
-				Returns the W3C Bitstring Status List for revocation checking. This is a public endpoint
-				that verifiers download to check credential revocation status locally.
+		</div>
+	</div>
+
+	<h3 class="text-primary mb-4 text-xl font-semibold">Revocation Endpoint</h3>
+
+	<div class="space-y-4">
+		<div>
+			<p class="text-primary mb-2 font-mono text-lg">POST /api/credentials/revoke</p>
+			<p class="text-text-secondary mb-4">
+				Revokes a credential by updating its status in DynamoDB and flipping the corresponding bit
+				in the W3C Status List bitstring.
 			</p>
+		</div>
 
-			<h4>Response (Success 200)</h4>
-			<div class="code-block">
-				<div class="code-header">
-					<span class="code-title">Response</span>
-					<span class="code-lang">JSON</span>
-				</div>
-				<pre><code>{`{
-  "@context": ["https://www.w3.org/2018/credentials/v1"],
-  "type": "BitstringStatusListCredential",
-  "issuer": "did:web:zeroverify.com",
-  "issued": "2025-02-10T20:41:27Z",
-  "credentialSubject": {
-    "id": "https://api.zeroverify.com/status",
-    "type": "BitstringStatusList",
-    "encodedList": "H4sIAAAAAAAA/+3BAQ0AAA..."  // Compressed bitstring
-  }
-}`}</code></pre>
+		<div>
+			<h4 class="text-primary mb-2 font-semibold">Request Body</h4>
+			<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+				<pre class="text-text-secondary text-sm"><code
+						>{`{
+  "credential_id": "a3f8b2c1-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+  "proof_of_ownership": "base64_zk_proof_of_credential_ownership"
+}`}</code
+					></pre>
 			</div>
 		</div>
-	</section>
 
-	<section class="section" id="algorithms">
-		<h2>Algorithm Logic</h2>
-		<p class="lead">Zero-knowledge proof circuits and cryptographic operations</p>
+		<div>
+			<h4 class="text-primary mb-2 font-semibold">Response (200 Success)</h4>
+			<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+				<pre class="text-text-secondary text-sm"><code
+						>{`{
+  "status": "revoked",
+  "credential_id": "a3f8b2c1-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+  "revoked_at": "2025-03-15T14:22:00Z"
+}`}</code
+					></pre>
+			</div>
+		</div>
 
-		<div class="algorithm-card">
-			<h3>ZK-SNARK Circuit: Age Verification</h3>
-			<p class="algo-description">
-				Circom circuit that proves "user is over a certain age" without revealing birthdate.
+		<div>
+			<h4 class="text-primary mb-2 font-semibold">Error States</h4>
+			<div class="text-text-secondary space-y-2">
+				<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+					<p class="mb-2 font-semibold">404 Not Found - Credential does not exist</p>
+					<pre class="text-sm"><code
+							>{`{
+  "error": "not_found",
+  "error_description": "Credential ID not found"
+}`}</code
+						></pre>
+				</div>
+
+				<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+					<p class="mb-2 font-semibold">403 Forbidden - Proof of ownership invalid</p>
+					<pre class="text-sm"><code
+							>{`{
+  "error": "forbidden",
+  "error_description": "Invalid proof of credential ownership"
+}`}</code
+						></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+</Section>
+
+<Section title="Algorithm Logic">
+	<h3 class="text-primary mb-4 text-xl font-semibold">Credential Issuance Flow</h3>
+	<div class="border-borders mb-6 overflow-x-auto rounded-lg border bg-black p-4">
+		<pre class="text-text-secondary text-sm"><code
+				>{`1. User initiates issuance from React web app
+2. App redirects to Keycloak
+3. Keycloak federates with institution's IdP via SAML/OAuth
+4. User authenticates with institution
+5. Keycloak returns authorization code to React app
+6. React app sends code to Issuance Lambda via API Gateway
+
+Lambda execution:
+7. Exchange authorization code with Keycloak for OIDC claims
+8. Extract verified attributes from claims (student_status, email, etc.)
+9. Compute pseudonymous subject ID: HMAC(issuer_id || sub_id)
+10. Query DynamoDB for existing active credential
+   IF active credential exists:
+     RETURN 409 Conflict
+11. Generate new credential_id (UUID)
+12. Assign next available revocation_index
+13. Create W3C Verifiable Credential structure
+14. Load BBS+ private key from AWS Secrets Manager
+15. Sign credential with BBS+ signature
+16. Write credential metadata to DynamoDB:
+    - subject: pseudonymous_id
+    - credential_id: new_uuid
+    - status: ACTIVE
+    - issue_date, expiry_date, revocation_index
+17. Return signed credential to React app
+18. React app stores credential in browser IndexedDB
+19. Credential never transmitted to any server again`}</code
+			></pre>
+	</div>
+
+	<h3 class="text-primary mb-4 text-xl font-semibold">ZK Proof Generation Flow (Client-Side)</h3>
+	<div class="border-borders mb-6 overflow-x-auto rounded-lg border bg-black p-4">
+		<pre class="text-text-secondary text-sm"><code
+				>{`1. Verifier generates verification URL:
+   https://verify.zeroverify.com/?proof_type=student_status
+     &callback=https://merchant.com/verify
+     &nonce=random_challenge_string
+
+2. User opens URL in browser
+3. React app parses query parameters
+4. Load credential from IndexedDB
+5. Check credential validity:
+   - Expiration date > current time
+   - Status = ACTIVE (check local cache or fetch bitstring)
+6. Display consent screen to user:
+   - Verifier: merchant.com
+   - Proof type: "Student Status"
+   - What will be disclosed: "Valid/Invalid (no personal data)"
+7. IF user denies:
+     RETURN consent_denied to callback
+8. IF user approves:
+
+   Client-side proof generation:
+   9. Load zk-SNARK circuit for proof_type from S3
+   10. Prepare circuit inputs:
+       - Private inputs: credential attributes (student_status, birthdate, etc.)
+       - Public inputs: challenge nonce, revocation_index
+   11. Execute Groth16 prover (compiled to WebAssembly):
+       - Circuit proves: "credential.student_status == 'enrolled'"
+       - Without revealing actual student_status value
+   12. Generate zk-SNARK proof (2-5 seconds)
+   13. Construct proof object:
+       {
+         proof_type: "student_status",
+         proof: base64_proof_bytes,
+         public_inputs: { challenge: nonce, credential_status_index: 94567 }
+       }
+   14. POST proof directly to verifier's callback endpoint
+   15. Display result to user: "Verification sent"`}</code
+			></pre>
+	</div>
+
+	<h3 class="text-primary mb-4 text-xl font-semibold">Proof Verification Logic (Verifier-Side)</h3>
+	<div class="border-borders overflow-x-auto rounded-lg border bg-black p-4">
+		<pre class="text-text-secondary text-sm"><code
+				>{`Verifier receives proof at their callback endpoint:
+
+1. Extract proof components:
+   - proof_type
+   - proof (zkSNARK proof bytes)
+   - public_inputs (challenge, credential_status_index)
+
+2. Validation checks:
+
+   a) Challenge nonce verification:
+      IF public_inputs.challenge != expected_nonce:
+        RETURN invalid (replay attack or wrong session)
+
+   b) Challenge freshness:
+      IF challenge_timestamp > 5 minutes ago:
+        RETURN invalid (expired challenge)
+
+   c) Challenge single-use:
+      IF challenge already used:
+        RETURN invalid (replay attack)
+      ELSE:
+        Mark challenge as used
+
+   d) Cryptographic proof verification:
+      - Load verification key for proof_type from ZeroVerify S3
+      - Run Groth16 verifier:
+          verify(proof, public_inputs, verification_key)
+      IF verification fails:
+        RETURN invalid (tampered or incorrect proof)
+
+   e) Revocation check:
+      - Download W3C Status List bitstring from ZeroVerify S3
+      - Extract bit at position: public_inputs.credential_status_index
+      IF bit == 1:
+        RETURN invalid (credential revoked)
+
+3. All checks passed:
+   RETURN valid
+
+4. Verifier makes business decision:
+   - Grant student discount
+   - Allow access
+   - Log verification event (no PII, only: timestamp, proof_type, result)`}</code
+			></pre>
+	</div>
+</Section>
+
+<Section title="Component Interactions">
+	<h3 class="text-primary mb-4 text-xl font-semibold">System Flow Summary</h3>
+	<div class="text-text-secondary space-y-4">
+		<div>
+			<h4 class="text-primary mb-2 font-semibold">Issuance Path</h4>
+			<p>
+				React App ↔ Keycloak ↔ Institution IdP<br />
+				React App → API Gateway → Issuance Lambda → DynamoDB<br />
+				Issuance Lambda ← AWS Secrets Manager (BBS+ key)<br />
+				React App ← Signed Credential → IndexedDB (local storage)
 			</p>
-
-			<div class="code-block">
-				<div class="code-header">
-					<span class="code-title">age_verification.circom</span>
-					<span class="code-lang">Circom</span>
-				</div>
-				<pre><code>{`pragma circom 2.0.0;
-
-template AgeVerification() {
-    // Private inputs (not revealed)
-    signal input birthdate;        // YYYYMMDD format
-    signal input current_date;     // YYYYMMDD format
-
-    // Public inputs
-    signal input min_age;          // Required minimum age (e.g., 21)
-    signal input challenge;        // Verifier nonce
-
-    // Public outputs
-    signal output is_valid;        // 1 if age >= min_age, 0 otherwise
-    signal output challenge_hash;  // Prevents replay attacks
-
-    // Calculate age
-    component age_calc = CalculateAge();
-    age_calc.birthdate <== birthdate;
-    age_calc.current_date <== current_date;
-
-    // Check if age >= minimum required
-    component age_check = GreaterEqThan(8);
-    age_check.in[0] <== age_calc.age;
-    age_check.in[1] <== min_age;
-
-    is_valid <== age_check.out;
-
-    // Bind to challenge to prevent replay
-    component hasher = Poseidon(1);
-    hasher.inputs[0] <== challenge;
-    challenge_hash <== hasher.out;
-}
-
-component main = AgeVerification();`}</code></pre>
-			</div>
-
-			<div class="algo-explanation">
-				<h4>How it works:</h4>
-				<ol>
-					<li>User provides birthdate and current date as private inputs (never revealed)</li>
-					<li>Circuit calculates age from the difference</li>
-					<li>Checks if age ≥ minimum required age</li>
-					<li>Outputs only a boolean (valid/invalid) and challenge hash</li>
-					<li>Verifier learns nothing except "this person meets the age requirement"</li>
-				</ol>
-			</div>
 		</div>
 
-		<div class="algorithm-card">
-			<h3>BBS+ Signature Flow</h3>
-			<p class="algo-description">
-				Selective disclosure signature scheme that enables proving individual attributes.
+		<div>
+			<h4 class="text-primary mb-2 font-semibold">Verification Path</h4>
+			<p>
+				Verifier → User (verification URL)<br />
+				React App ← IndexedDB (load credential)<br />
+				React App ← S3 (load circuit & verification key)<br />
+				React App → Verifier Callback (POST proof)<br />
+				Verifier ← S3 (verification key & bitstring)<br />
+				Verifier → Business Logic (grant/deny access)
 			</p>
-
-			<div class="flow-steps">
-				<div class="flow-step">
-					<div class="step-num">1</div>
-					<div class="step-content">
-						<h4>Credential Signing (Issuer)</h4>
-						<p>Issuer signs credential with BBS+ private key. Signature covers all attribute claims.</p>
-						<p class="perf-note">Performance: 6-7.5ms per credential</p>
-					</div>
-				</div>
-
-				<div class="flow-step">
-					<div class="step-num">2</div>
-					<div class="step-content">
-						<h4>Selective Disclosure (User)</h4>
-						<p>User creates proof revealing only required attributes (e.g., just "student_status" without name, birthdate, etc.)</p>
-						<p class="perf-note">Performance: 1-2ms per proof</p>
-					</div>
-				</div>
-
-				<div class="flow-step">
-					<div class="step-num">3</div>
-					<div class="step-content">
-						<h4>Proof Verification (Verifier)</h4>
-						<p>Verifier checks cryptographic validity using issuer's public key. No access to hidden attributes.</p>
-						<p class="perf-note">Performance: ~19ms per proof</p>
-					</div>
-				</div>
-			</div>
 		</div>
 
-		<div class="algorithm-card">
-			<h3>Revocation Checking Algorithm</h3>
-			<p class="algo-description">
-				Privacy-preserving revocation using W3C Bitstring Status Lists
+		<div>
+			<h4 class="text-primary mb-2 font-semibold">Revocation Path</h4>
+			<p>
+				User → API Gateway → SQS Queue<br />
+				Revocation Lambda ← SQS (batch processing)<br />
+				Revocation Lambda ↔ DynamoDB (update status)<br />
+				Revocation Lambda ↔ S3 (update bitstring)
 			</p>
-
-			<div class="code-block">
-				<div class="code-header">
-					<span class="code-title">Pseudocode</span>
-					<span class="code-lang">Algorithm</span>
-				</div>
-				<pre><code>{`function checkRevocation(credential, statusList):
-    // Extract revocation index from credential
-    index = credential.credentialStatus.statusListIndex
-
-    // Download compressed bitstring from S3 (cached locally)
-    bitstring = decompress(statusList.encodedList)
-
-    // Check bit at index position
-    isRevoked = bitstring[index] == 1
-
-    if isRevoked:
-        return REVOKED
-    else:
-        return ACTIVE
-
-// Privacy property: Verifier downloads entire bitstring
-// No query reveals which specific credential is being checked`}</code></pre>
-			</div>
 		</div>
-	</section>
-</div>
-
-<style>
-	.design-page {
-		max-width: 1200px;
-	}
-
-	h1 {
-		font-size: 3rem;
-		margin-bottom: 0.5rem;
-	}
-
-	.subtitle {
-		color: #8b949e;
-		font-size: 1.1rem;
-		margin-bottom: 3rem;
-	}
-
-	.section {
-		margin-bottom: 4rem;
-		padding-bottom: 3rem;
-		border-bottom: 1px solid #21262d;
-	}
-
-	.section:last-child {
-		border-bottom: none;
-	}
-
-	h2 {
-		font-size: 2.5rem;
-		margin-bottom: 2rem;
-	}
-
-	.lead {
-		font-size: 1.2rem;
-		color: #8b949e;
-		line-height: 1.8;
-		margin-bottom: 2rem;
-	}
-
-	.schema-card {
-		background-color: #161b22;
-		border: 1px solid #30363d;
-		border-radius: 12px;
-		padding: 2rem;
-		margin-bottom: 2rem;
-	}
-
-	.schema-card h3 {
-		font-size: 1.5rem;
-		margin-bottom: 1rem;
-		color: #00d4ff;
-	}
-
-	.schema-description {
-		color: #8b949e;
-		margin-bottom: 1.5rem;
-		line-height: 1.6;
-	}
-
-	.code-block {
-		background-color: #0d1117;
-		border: 1px solid #30363d;
-		border-radius: 8px;
-		overflow: hidden;
-		margin: 1.5rem 0;
-	}
-
-	.code-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.75rem 1.25rem;
-		background-color: #161b22;
-		border-bottom: 1px solid #30363d;
-		font-size: 0.9rem;
-	}
-
-	.code-title {
-		color: #c9d1d9;
-		font-weight: 600;
-		font-size: 0.9rem;
-	}
-
-	.code-lang {
-		color: #8b949e;
-		font-size: 0.85rem;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-
-	.code-block pre {
-		margin: 0;
-		padding: 1.5rem;
-		overflow-x: auto;
-	}
-
-	.code-block code {
-		font-family: 'Courier New', monospace;
-		font-size: 0.9rem;
-		line-height: 1.6;
-		color: #c9d1d9;
-	}
-
-	.schema-details {
-		margin-top: 2rem;
-	}
-
-	.schema-details h4 {
-		font-size: 1.1rem;
-		margin-bottom: 1rem;
-		color: #c9d1d9;
-	}
-
-	.schema-details ul {
-		list-style: none;
-		padding: 0;
-	}
-
-	.schema-details li {
-		padding: 0.75rem 0;
-		color: #8b949e;
-		line-height: 1.6;
-		border-bottom: 1px solid #21262d;
-	}
-
-	.schema-details li:last-child {
-		border-bottom: none;
-	}
-
-	.schema-details strong {
-		color: #9d4edd;
-		font-family: 'Courier New', monospace;
-		font-size: 0.9rem;
-	}
-
-	.relationships-card {
-		background-color: #161b22;
-		border: 1px solid #30363d;
-		border-radius: 8px;
-		padding: 1.5rem;
-		margin-top: 2rem;
-	}
-
-	.relationships-card h4 {
-		font-size: 1.1rem;
-		margin-bottom: 1rem;
-		color: #00d4ff;
-	}
-
-	.relationships-card ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
-	.relationships-card li {
-		padding: 0.5rem 0;
-		color: #8b949e;
-		line-height: 1.6;
-	}
-
-	.relationships-card strong {
-		color: #9d4edd;
-		font-weight: 700;
-	}
-
-	.api-endpoint {
-		background-color: #161b22;
-		border: 1px solid #30363d;
-		border-radius: 12px;
-		padding: 2rem;
-		margin-bottom: 3rem;
-	}
-
-	.endpoint-header {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		margin-bottom: 1rem;
-	}
-
-	.http-method {
-		font-weight: 700;
-		padding: 0.5rem 1rem;
-		border-radius: 6px;
-		font-size: 0.85rem;
-		letter-spacing: 0.05em;
-	}
-
-	.http-method.post {
-		background-color: rgba(0, 212, 255, 0.2);
-		color: #00d4ff;
-	}
-
-	.http-method.get {
-		background-color: rgba(157, 78, 221, 0.2);
-		color: #9d4edd;
-	}
-
-	.endpoint-path {
-		font-family: 'Courier New', monospace;
-		font-size: 1.1rem;
-		color: #c9d1d9;
-	}
-
-	.endpoint-description {
-		color: #8b949e;
-		line-height: 1.7;
-		margin-bottom: 2rem;
-	}
-
-	.api-endpoint h4 {
-		font-size: 1.1rem;
-		margin-top: 2rem;
-		margin-bottom: 1rem;
-		color: #c9d1d9;
-	}
-
-	.error-states {
-		margin-top: 1.5rem;
-	}
-
-	.error-state {
-		display: flex;
-		gap: 1rem;
-		padding: 0.75rem 1rem;
-		background-color: #0d1117;
-		border: 1px solid #30363d;
-		border-radius: 6px;
-		margin-bottom: 0.5rem;
-	}
-
-	.error-code {
-		font-weight: 700;
-		color: #ff6b6b;
-		font-family: 'Courier New', monospace;
-		min-width: 50px;
-	}
-
-	.error-desc {
-		color: #8b949e;
-		line-height: 1.5;
-	}
-
-	.algorithm-card {
-		background-color: #161b22;
-		border: 1px solid #30363d;
-		border-radius: 12px;
-		padding: 2rem;
-		margin-bottom: 3rem;
-	}
-
-	.algorithm-card h3 {
-		font-size: 1.5rem;
-		margin-bottom: 1rem;
-		color: #00d4ff;
-	}
-
-	.algo-description {
-		color: #8b949e;
-		margin-bottom: 1.5rem;
-		line-height: 1.6;
-	}
-
-	.algo-explanation h4 {
-		font-size: 1.1rem;
-		margin-top: 2rem;
-		margin-bottom: 1rem;
-		color: #c9d1d9;
-	}
-
-	.algo-explanation ol {
-		padding-left: 1.5rem;
-		color: #8b949e;
-	}
-
-	.algo-explanation li {
-		margin-bottom: 0.75rem;
-		line-height: 1.6;
-	}
-
-	.flow-steps {
-		margin-top: 2rem;
-	}
-
-	.flow-step {
-		display: flex;
-		gap: 1.5rem;
-		margin-bottom: 2rem;
-		padding-bottom: 2rem;
-		border-bottom: 1px solid #30363d;
-	}
-
-	.flow-step:last-child {
-		border-bottom: none;
-	}
-
-	.step-num {
-		flex-shrink: 0;
-		width: 50px;
-		height: 50px;
-		background: linear-gradient(135deg, #00d4ff 0%, #9d4edd 100%);
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: #fff;
-	}
-
-	.step-content h4 {
-		font-size: 1.2rem;
-		margin-bottom: 0.75rem;
-		color: #c9d1d9;
-	}
-
-	.step-content p {
-		color: #8b949e;
-		line-height: 1.6;
-		margin-bottom: 0.5rem;
-	}
-
-	.perf-note {
-		color: #9d4edd;
-		font-size: 0.9rem;
-		font-style: italic;
-	}
-</style>
+	</div>
+</Section>
