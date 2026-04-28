@@ -12,7 +12,7 @@
 			audioElement.play().then(() => {
 
 				audioElement.muted = false;
-				audioElement.volume = 0.2;
+				audioElement.volume = 0.0;
 				isPlaying = true;
 			}).catch((error) => {
 
@@ -20,6 +20,19 @@
 				isPlaying = false;
 			});
 		}
+
+		const handleScroll = () => {
+			if (isPlaying && audioElement) {
+				audioElement.pause();
+				isPlaying = false;
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll, { once: true });
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
 	});
 
 	function toggleMusic() {
