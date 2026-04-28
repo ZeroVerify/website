@@ -5,15 +5,7 @@ ZeroVerify team Version 1.1 \| Last Updated: February 2025
 
 ## Team Members
 
-- Lisa Nguyen
-
-- Anton Sakhanovych
-
-- Souleymane Sono
-
-- Fateha Ima
-
-- Simon Griemert
+Lisa Nguyen, Anton Sakhanovych, Souleymane Sono, Fateha Ima, Simon Griemert
 
 ## Communication Protocol
 
